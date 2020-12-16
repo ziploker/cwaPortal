@@ -8,10 +8,19 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "jquery": "^3.5.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "turbolinks": "^5.2.0"
+    "react-on-rails": "12.0.5-beta.0",
+    "react-paralax": "^1.0.0",
+    "react-parallax": "^3.1.2",
+    "react-places-autocomplete": "^7.3.0",
+    "react-router-dom": "^5.2.0",
+    "react-spinkit": "^3.0.0",
+    "styled-components": "^5.2.1",
+    "turbolinks": "^5.2.0",
+    "use-fit-text": "^2.4.0"
   },
   "version": "0.1.0",
   "devDependencies": {
