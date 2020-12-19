@@ -16,6 +16,7 @@ const ResultCardWrapper = styled.div`
   justify-items: center;
   width: 100%;
   height: 100%;
+  min-width: 150px;
   
   max-height: ${ props => props.showCards.toString() == "false" ? "0px" : "100%"};
   opacity: ${ props => props.showCards.toString() == "false" ? "0" : "1"};
@@ -38,12 +39,12 @@ const Card = styled.div`
   position: relative;
   
   width: 100%;
-  height:100%;
+  //height:100%;
   
   display: grid;
-  grid-template-columns: 5px minmax(min-content, max-content) 1fr 5px;
+  grid-template-columns: 5px minmax(10px, min-content) 1fr 5px;
   grid-template-rows: 5px 25px 5px 1fr;
-  grid-column-gap: 5px;
+  //grid-column-gap: 5px;
   grid-template-areas:
     " .   .     .    ."
     " . logo  title  ."
@@ -63,7 +64,7 @@ const TopBar = styled.div`
   border-radius: 50%;
   z-index:1;
   background: ${props => props.theme.offWhite};
-  
+  margin: 0px 10px;
 
 `;
 
@@ -72,11 +73,11 @@ const BottomBar = styled.div`
   bottom: 0px;
   left: 3px;
   right: 3px;
-  z-index: 1000;
+  z-index: 0;
   //width: 100%;
-  
+  //opacity: .7;
   transform: skew(-15deg);
-  background: ${props => props.theme.blueGray};
+  background: rgba(14, 32, 33, 0.7);
   border: 1px solid ${props => props.theme.offWhite};
   display: grid;
   grid-template-rows: 50% 50%;
@@ -118,8 +119,8 @@ const Title = styled.h6`
 `;
 
 const Dimmer = styled.div`
-  background-color: #0E2021;
-  opacity: .8;
+  background: rgba(14, 32, 33, 0.7);
+  z-index: 1;
   grid-area: 1/1/4/7;
   
 `;
@@ -127,7 +128,7 @@ const Dimmer = styled.div`
 
 function ResultCardOne(props){
 
-  const { fontSize, ref } = useFitText();
+  const { fontSize, ref } = useFitText({maxFontSize: 90, minFontSize: 50});
 
   return (
     
@@ -155,7 +156,7 @@ function ResultCardOne(props){
         
 
         
-        <h6 ref={ref} style={{fontSize, gridArea: "name", margin: "0", color: "white", padding: "5px", lineHeight: "90%"}}>{props.results.one.name ? props.results.one.name : ""} </h6>
+        <h6 ref={ref} style={{fontSize, width: "100%", gridArea: "name", margin: "0", color: "white", padding: "5px", lineHeight: "90%"}}>{props.results.one.name ? props.results.one.name : ""} </h6>
         
 
 

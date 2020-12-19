@@ -92,20 +92,45 @@ const Results = styled.div`
 
     display: grid;
     //grid-template-columns: repeat( 2, minmax(210px,300px) );
-    grid-template-columns: minmax(200px) minmax(450px,500px);
+    grid-template-columns: minmax(240px, 250px) minmax(240px, 250px) minmax(450px,600px);
     grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
     grid-gap: 30px;
     grid-area: results;
     padding: 20px 20px;
     grid-template-areas:
-      "cardOne demoLetter"
-      "cardTwo demoLetter";
+      "cardOne cardTwo demoLetter"
+      "  .   .    demoLetter";
+      
 
-    @media screen and (max-width: 600px){
 
-      grid-template-columns: minmax(210px,300px);
+    @media screen and (max-width: 1050px){
+
+      grid-template-columns: minmax(150px, 240px) minmax(375px,600px);
+      grid-template-areas:
+      "cardOne  demoLetter"
+      "cardTwo  demoLetter";
+
+      
 
     }
+
+    @media screen and (max-width: 631px){
+
+      grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content);
+      grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
+      grid-template-areas:
+      "cardOne cardTwo "
+      
+      "demoLetter demoLetter";
+
+
+
+    }
+    //@media screen and (max-width: 600px){
+
+    //  grid-template-columns: minmax(210px,300px);
+
+    //}
 
     
 
@@ -115,9 +140,71 @@ const Results = styled.div`
 
 `;
 
+const To = styled.sub`
+
+    grid-area: to;
+    align-self: center;
+    justify-self: start;
+
+`;
+
+
+const Email1 = styled.span`
+
+  grid-area: email1;
+  font-size: .8em;
+`;
+
+const Email2 = styled.span`
+
+  grid-area: email2;
+  font-size: .8em;
+  margin-bottom: 20px;
+
+`;
+
+const Message = styled.p`
+
+  grid-area: message;
+  
+  margin-bottom: 20px;
+  font-size: .9em;
+  
+
+`;
+
+const From = styled.div`
+
+  grid-area: from;
+  font-size: .8em;
+  line-height: .9em;
+
+`;
+
 const DemoLetter = styled.div`
 
-grid-area: demoLetter;
+  grid-area: demoLetter;
+  max-height: ${ props => props.showCards.toString() == "false" ? "0px" : "100%"};
+  opacity: ${ props => props.showCards.toString() == "false" ? "0" : "1"};
+  align-self: start;
+
+`;
+
+
+const Letter = styled.div`
+
+  display: grid;
+  grid-template-columns: minmax(min-content, max-content ) minmax(0px, 1fr);
+  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 1fr minmax(min-content, max-content);
+  grid-template-areas:
+    "to  email1"
+    " .  email2"
+    "message message"
+    "from from";
+
+    height: 100%;
+    grid-column-gap: 15px;
+    //grid-row-gap: 25px;
 
 
 `;
@@ -234,7 +321,7 @@ function Look_Up_Section (props, ref) {
         <Banner ref={LookupScrollToRef}> Take Action !!</Banner>
         <SubBanner > Contact your state Representative </SubBanner>
 
-        <div className={`sticky-wrapper${isSticky ? ' sticky' : ''}`} ref={stepsRef}>
+        <div className={`sticky-wrapper${isSticky && showCards ? ' sticky' : ''}`} ref={stepsRef}>
           
           <Steps bulletStatus={bulletStatus} setBulletStatus={setBulletStatus}>
 
@@ -272,7 +359,34 @@ function Look_Up_Section (props, ref) {
           <ResultCardTwo showCards={showCards} results={results} />
 
           <DemoLetter showCards={showCards} results={results}>
-            <textarea name="Letter" id="demoLetter" cols="30" rows="10">This is a sample letter tewsting one to three </textarea>
+            <Letter>
+              
+              <To>recipients:</To>
+              <Email1>{results.one.email}</Email1>
+              <Email2>{results.two.email}</Email2>
+              <Message>
+                
+                This is a test message. I am a constituant of 
+                <i style={{fontSize: ".8em"}}>({results.one.fullDistrict}/{results.two.fullDistrict})</i> 
+                to be sent and displasdfsgsdg. Dsdfgsdfs sdfsf sdfsd sdfs.
+                
+    By treating marijuana like alcohol, we can take sales out of the hands of drug cartels in the underground criminal market and put them behind the counters of state-licensed businesses that are creating jobs and paying taxes.
+    Law enforcement officials’ time and resources could be better spent addressing violent and otherwise serious crimes instead of arresting and prosecuting adults for using marijuana. For example, in Houston alone, over 15,000 burglaries with viable leads went uninvestigated in 2013. During that same time period, over 74,000 arrests for possession of marijuana occurred in Texas. Clearly, our tax dollars and our law enforcement priorities need to be redirected.
+
+                
+                
+                </Message>
+              <From>
+
+                Sincerely, <br/>
+                Alejandro Raffo <br/>
+                {lastTermSearched} <br/>
+                sdfsdfsdsdc@sdfsdfsdf.com
+
+              </From>
+
+
+            </Letter>
           </DemoLetter>
         </Results>
         
