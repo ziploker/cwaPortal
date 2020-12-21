@@ -7,6 +7,14 @@ import ResultCardTwo from './resultCardTwo.jsx'
 import ResetButton from './newSearchButton.jsx'
 import Steps from './steps'
 import '../../assets/stylesheets/steps.scss'
+import '../../assets/stylesheets/sendButton'
+
+import useFitText from "use-fit-text";
+
+
+
+
+
 
 
 
@@ -89,7 +97,7 @@ const SubBanner = styled.h3`
 const Results = styled.div`
 
     //background-color: ${props => props.theme.offWhite};
-
+  overflow: hidden;
     display: grid;
     //grid-template-columns: repeat( 2, minmax(210px,300px) );
     grid-template-columns: minmax(240px, 250px) minmax(240px, 250px) minmax(450px,600px);
@@ -178,6 +186,7 @@ const From = styled.div`
   grid-area: from;
   font-size: .8em;
   line-height: .9em;
+  align-self: flex-end;
 
 `;
 
@@ -194,17 +203,26 @@ const DemoLetter = styled.div`
 const Letter = styled.div`
 
   display: grid;
-  grid-template-columns: minmax(min-content, max-content ) minmax(0px, 1fr);
+  grid-template-columns: minmax(min-content, max-content ) minmax(0px, 1fr) minmax(min-content, max-content );
   grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 1fr minmax(min-content, max-content);
   grid-template-areas:
-    "to  email1"
-    " .  email2"
-    "message message"
-    "from from";
+    "to  email1 email1"
+    " .  email2 email2"
+    "message message message"
+    "from from button";
 
     height: 100%;
     grid-column-gap: 15px;
     //grid-row-gap: 25px;
+
+
+`;
+
+const SendButton = styled.a`
+
+    justify-self: center;
+    align-self: flex-end;
+    grid-area: button;
 
 
 `;
@@ -216,9 +234,11 @@ function Look_Up_Section (props, ref) {
 
   const {LookupScrollToRef, LookupInputRef} = ref;
 
-  const [showCards, setShowCards] = React.useState( true )
-  const [results, setResults] = React.useState( {"one":{"name":"Annette Taddeo","firstName":"Annette","lastName":"Taddeo","image":"http://www.flsenate.gov/PublishedContent/Senators/2018-2020/Photos/s40_5331.jpg","id":"ocd-person/ea190b03-d1ca-4d75-89c7-dca745386db7","email":"taddeo.annette.web@flsenate.gov","chamber":"Senate","party":"Democrat","parent":"Florida Legislature","district":"40","fullDistrict":"Florida State Senate district 40"},"two":{"name":"Juan Alfonso Fernandez-Barquin","firstName":"","lastName":"","image":"https://www.myfloridahouse.gov//FileStores/Web/Imaging/Member/4709.jpg","id":"ocd-person/a8c88fee-1915-4907-ae37-5755c4bff446","email":"JuanF.Barquin@myfloridahouse.gov","chamber":"House","party":"Republican","parent":"Florida Legislature","district":"119","fullDistrict":"Florida State House district 119"}} );
-  //const [results, setResults] = React.useState( {"one": {}, "two": {} });
+  const [showCards, setShowCards] = React.useState( false )
+  const [showSteps, setShowSteps] = React.useState( false )
+  const [sendButtonClass, setSendButtonClass] = React.useState("button success")
+  //const [results, setResults] = React.useState( {"one":{"name":"Annette Taddeo","firstName":"Annette","lastName":"Taddeo","image":"http://www.flsenate.gov/PublishedContent/Senators/2018-2020/Photos/s40_5331.jpg","id":"ocd-person/ea190b03-d1ca-4d75-89c7-dca745386db7","email":"taddeo.annette.web@flsenate.gov","chamber":"Senate","party":"Democrat","parent":"Florida Legislature","district":"40","fullDistrict":"Florida State Senate district 40"},"two":{"name":"Juan Alfonso Fernandez-Barquin","firstName":"","lastName":"","image":"https://www.myfloridahouse.gov//FileStores/Web/Imaging/Member/4709.jpg","id":"ocd-person/a8c88fee-1915-4907-ae37-5755c4bff446","email":"JuanF.Barquin@myfloridahouse.gov","chamber":"House","party":"Republican","parent":"Florida Legislature","district":"119","fullDistrict":"Florida State House district 119"}} );
+  const [results, setResults] = React.useState( {"one": {}, "two": {} });
 
   const [showStatusSpinner, setShowStatusSpinner] = React.useState (false)
   const [showStatusCheck, setShowStatusCheck] = React.useState (false)
@@ -236,13 +256,9 @@ function Look_Up_Section (props, ref) {
   
   })
 
-  const [bulletStatus, setBulletStatus] = React.useState({
-    
-    bullet1: 'NOT_COMPLETED',
-    bullet2: 'NOT_COMPLETED',
-    
-  
-  })
+  const [bullet1, setBullet1] = React.useState('NOT_COMPLETED')
+  const [bullet2, setBullet2] = React.useState('NOT_COMPLETED')
+   
 
   const [isSticky, setSticky] = useState(false);
   const stepsRef = useRef(null);
@@ -252,9 +268,35 @@ function Look_Up_Section (props, ref) {
     }
   };
 
+  const { fontSize, textRef } = useFitText({maxFontSize: 90, minFontSize: 50});
+  const sendButtonRef = useRef(null);
   
   
+  const animateButton = function(e) {
+
+    e.preventDefault;
+    //reset animation
+    //e.target.classList.remove('animate');
+    
+    //e.target.classList.add('animate');
+    setSendButtonClass("button success animate")
+    //e.target.classList.add('animate');
+    setBullet2("COMPLETED")
+    //setTimeout(function(){
+      //e.target.classList.remove('animate');
+    //},6000);
+    setTimeout(function(){
+      setShowSteps(false)
+      //e.target.classList.remove('animate')
+    },3000);
   
+  
+    ////var classname = document.getElementsByClassName("button");
+    
+    ////for (var i = 0; i < classname.length; i++) {
+    ////  classname[i].addEventListener('click', animateButton, false);
+    //}
+  };
 
 
   const handleChange2 = event => {
@@ -312,7 +354,7 @@ function Look_Up_Section (props, ref) {
 
     
 
-    <BottomHalf >
+    <BottomHalf>
 
       {console.log("rendering lookupSection")}
         
@@ -321,9 +363,9 @@ function Look_Up_Section (props, ref) {
         <Banner ref={LookupScrollToRef}> Take Action !!</Banner>
         <SubBanner > Contact your state Representative </SubBanner>
 
-        <div className={`sticky-wrapper${isSticky && showCards ? ' sticky' : ''}`} ref={stepsRef}>
+        <div className={`sticky-wrapper${isSticky && showSteps ? ' sticky' : ''}`} ref={stepsRef}>
           
-          <Steps bulletStatus={bulletStatus} setBulletStatus={setBulletStatus}>
+          <Steps bullet1={bullet1} bullet2={bullet2} setBullet1={setBullet1} setBullet2={setBullet2}>
 
           </Steps>
         </div>
@@ -345,12 +387,18 @@ function Look_Up_Section (props, ref) {
           showCards={showCards} 
           setShowCards={setShowCards} 
           
+          bullet1={bullet1} 
+          bullet2={bullet2} 
+          setBullet1={setBullet1} 
+          setBullet2={setBullet2}
           handleChange2={handleChange2}
           formInfo={formInfo} 
           setFormInfo={setFormInfo} 
           setResults={setResults}
           ref={LookupInputRef}
-          
+          setShowSteps={setShowSteps}
+          setSendButtonClass={setSendButtonClass}
+          sendButtonRef={sendButtonRef}
         />
 
         <Results>
@@ -364,28 +412,37 @@ function Look_Up_Section (props, ref) {
               <To>recipients:</To>
               <Email1>{results.one.email}</Email1>
               <Email2>{results.two.email}</Email2>
+              
               <Message>
                 
                 This is a test message. I am a constituant of 
                 <i style={{fontSize: ".8em"}}>({results.one.fullDistrict}/{results.two.fullDistrict})</i> 
                 to be sent and displasdfsgsdg. Dsdfgsdfs sdfsf sdfsd sdfs.
                 
-    By treating marijuana like alcohol, we can take sales out of the hands of drug cartels in the underground criminal market and put them behind the counters of state-licensed businesses that are creating jobs and paying taxes.
-    Law enforcement officials’ time and resources could be better spent addressing violent and otherwise serious crimes instead of arresting and prosecuting adults for using marijuana. For example, in Houston alone, over 15,000 burglaries with viable leads went uninvestigated in 2013. During that same time period, over 74,000 arrests for possession of marijuana occurred in Texas. Clearly, our tax dollars and our law enforcement priorities need to be redirected.
+                By treating marijuana like alcohol, we can take sales out of the hands of drug cartels in the underground criminal market and put them behind the counters of state-licensed businesses that are creating jobs and paying taxes.
+                Law enforcement officials’ time and resources could be better spent addressing violent and otherwise serious crimes instead of arresting and prosecuting adults for using marijuana. For example, in Houston alone, over 15,000 burglaries with viable leads went uninvestigated in 2013. During that same time period, over 74,000 arrests for possession of marijuana occurred in Texas. Clearly, our tax dollars and our law enforcement priorities need to be redirected.
 
                 
                 
-                </Message>
+              </Message>
+              
               <From>
 
                 Sincerely, <br/>
                 Alejandro Raffo <br/>
-                {lastTermSearched} <br/>
+                <span ref={textRef} style={{fontSize}}>{lastTermSearched} </span><br/>
                 sdfsdfsdsdc@sdfsdfsdf.com
 
               </From>
-
-
+              
+              <SendButton>
+                
+                
+                <div className="wrapper">
+                  <div ref={sendButtonRef} className="block" onClick={animateButton}><button className={props.appState.loggedInStatus == "LOGGED_IN" ? sendButtonClass : "button error"}>Send</button></div>
+                  
+                </div>
+              </SendButton>
             </Letter>
           </DemoLetter>
         </Results>

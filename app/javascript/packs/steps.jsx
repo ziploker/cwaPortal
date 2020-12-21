@@ -71,7 +71,7 @@ const StepsContainer = styled.div`
         
         grid-area: 2/9/3/11;
         justify-self: center;
-        //padding: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? props.bulletStatus.bullet2 == "COMPLETED" ? "10px 10px 10px 10px" : "0px" : "10px 10px 10px 10px"};
+        
         z-index: 2;
         //width: 40%;
         
@@ -83,7 +83,7 @@ const StepsContainer = styled.div`
     const Bullet3wrapper = styled.div`
     
         grid-area: 2/15/3/17;
-        //padding: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "0px" : "10px 10px 10px 10px"};
+        
         //width: 40%;
         justify-self: center;
     
@@ -95,7 +95,7 @@ const StepsContainer = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        //min-width: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "35px" : "50px" };
+        
         
         text-align: center;
         
@@ -125,49 +125,49 @@ const StepsContainer = styled.div`
 
     const Bullet2 = styled(Bullet1)`
     
-        border: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "4px solid #28a275" : "1px solid gray"};
-        color: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? props.bulletStatus.bullet2 == "COMPLETED" ? "white" : "white" : "gray"};
-        background-color: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "#28a275" : "#D8DED9"};
-        filter: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "blur(0px)" : "blur(.2px)"};
-        //min-width: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "50px" : "35px" };
+        border: ${props => props.bullet1 == "COMPLETED" ? "4px solid #28a275" : "1px solid gray"};
+        color: ${props => props.bullet1 == "COMPLETED" ? props.bullet2 == "COMPLETED" ? "white" : "white" : "gray"};
+        background-color: ${props => props.bullet1 == "COMPLETED" ? "#28a275" : "#D8DED9"};
+        filter: ${props => props.bullet1 == "COMPLETED" ? "blur(0px)" : "blur(.2px)"};
+        //min-width: ${props => props.bullet1 == "COMPLETED" ? "50px" : "35px" };
     
     `;
 
     const Bullet3 = styled(Bullet1)`
         
-        border: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "4px solid #28a275" : "1px solid gray"};
-        color: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "white" : "gray"};
-        background-color: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "#28a275" : "#D8DED9"};
-        //min-width: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "50px" : "35px" };
-        filter: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "blur(0px)" : "blur(.2px)"};
+        border: ${props => props.bullet2 == "COMPLETED" ? "4px solid #28a275" : "1px solid gray"};
+        color: ${props => props.bullet2 == "COMPLETED" ? "white" : "gray"};
+        background-color: ${props => props.bullet2 == "COMPLETED" ? "#28a275" : "#D8DED9"};
+        //min-width: ${props => props.bullet2 == "COMPLETED" ? "50px" : "35px" };
+        filter: ${props => props.bullet2 == "COMPLETED" ? "blur(0px)" : "blur(.2px)"};
 
     `;
 
     const Bar1 = styled.div`
     
-        height: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "4px" : "1.1px"};
+        height: ${props => props.bullet1 == "COMPLETED" ? "4px" : "1.1px"};
         width: 100%;
         justify-self: center;
-        background-color: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "#28a275" : "gray"};
+        background-color: ${props => props.bullet1 == "COMPLETED" ? "#28a275" : "gray"};
         grid-area: 2/4/3/10;
-        filter: ${props => props.bulletStatus.bullet1 == "COMPLETED" ? "blur(0px)" : "blur(.8px)"};
+        filter: ${props => props.bullet1 == "COMPLETED" ? "blur(0px)" : "blur(.8px)"};
         //padding-left: 10px;
         
     `;
 
     const Bar2 = styled.div`
         
-        height: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "4px" : "1.1px"};
+        height: ${props => props.bullet2 == "COMPLETED" ? "4px" : "1.1px"};
         width: 100%;
         justify-self: center;
-        background-color: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "#28a275" : "gray"};
+        background-color: ${props => props.bullet2 == "COMPLETED" ? "#28a275" : "gray"};
         grid-area: 2/10/3/16;
-        filter: ${props => props.bulletStatus.bullet2 == "COMPLETED" ? "blur(0px)" : "blur(.8px)"};
+        filter: ${props => props.bullet2 == "COMPLETED" ? "blur(0px)" : "blur(.8px)"};
 
     `;
 
 
-function Steps({bulletStatus, setBulletStatus}){
+function Steps(props){
 
    
     
@@ -196,37 +196,37 @@ function Steps({bulletStatus, setBulletStatus}){
 
             <Step3>
                 
-                {bulletStatus.bullet2 == "COMPLETED" ? "YOU'RE AWESOME !!!" : "Finish"}
+                {props.bullet2 == "COMPLETED" ? "YOU'RE AWESOME !!!" : "Finish"}
                 
             </Step3>
 
 
-            <Bullet1wrapper bulletStatus={bulletStatus} >
+            <Bullet1wrapper bullet1={props.bullet1} bullet2={props.bullet2} >
 
-                <Bullet1 bulletStatus={bulletStatus}>
+                <Bullet1 bullet1={props.bullet1} bullet2={props.bullet2}>
                     <h5 style={{padding: "5px"}}>1</h5>
                 </Bullet1>
                 
             </Bullet1wrapper>    
 
 
-            <Bullet2wrapper bulletStatus={bulletStatus} >
-                <Bullet2 bulletStatus={bulletStatus}>
+            <Bullet2wrapper bullet1={props.bullet1} bullet2={props.bullet2} >
+                <Bullet2 bullet1={props.bullet1} bullet2={props.bullet2}>
                 <h5 style={{padding: "5px"}}>2</h5>
                 </Bullet2>   
             </Bullet2wrapper>
 
             
-            <Bullet3wrapper bulletStatus={bulletStatus} >
-                <Bullet3 bulletStatus={bulletStatus}>
+            <Bullet3wrapper bullet1={props.bullet1} bullet2={props.bullet2} >
+                <Bullet3 bullet1={props.bullet1} bullet2={props.bullet2}>
                 <h5 style={{padding: "5px"}}>3</h5>
                 </Bullet3>  
             </Bullet3wrapper>              
 
-            <Bar1 bulletStatus={bulletStatus}>
+            <Bar1 bullet1={props.bullet1} bullet2={props.bullet2}>
                 
             </Bar1>
-            <Bar2 bulletStatus={bulletStatus}>
+            <Bar2 bullet1={props.bullet1} bullet2={props.bullet2}>
                 
             </Bar2>
               

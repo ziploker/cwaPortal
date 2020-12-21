@@ -234,7 +234,18 @@ function Lookup(props, ref) {
     if ( validForm() ) {
 
 
-      
+      //const fooBarNode = props.sendButtonRef.current
+
+      //Adding class to node element
+      //fooBarNode.classList.remove('animate');
+
+      if (props.bullet2 == "COMPLETED"){
+
+        props.setSendButtonClass("button success")
+
+      }
+
+
       
       //set current Search term state from input
       props.setLastTermSearched(props.formInfo.address)
@@ -283,7 +294,11 @@ function Lookup(props, ref) {
               props.setShowStatusSpinner(false)
               props.setShowStatusCheck(true)
               props.setShowCards(true)
-              props.setResults(data);
+              props.setShowSteps(true)
+              props.setBullet1("COMPLETED")
+              props.setBullet2("NOT_COMPLETED")
+              props.setResults(data)
+              
             })
         
           }).catch(error => {
@@ -321,7 +336,11 @@ function Lookup(props, ref) {
           props.setShowStatusSpinner(false)
           props.setShowStatusCheck(true)
           props.setShowCards(true)
-          props.setResults(data);
+          props.setShowSteps(true)
+          props.setBullet1("COMPLETED")
+          props.setBullet2("NOT_COMPLETED")
+          props.setResults(data)
+          
         })
       }
       
@@ -371,7 +390,8 @@ function Lookup(props, ref) {
             padding: "50",
             zIndex: "1000",
             gridArea: "input",
-            position: "relative"
+            position: "relative",
+            overflow: "visible"
           }}>
 
             <Button searchButtonActive={props.searchButtonActive} disabled={false} type="submit" className="btn btn-primary"> </Button>

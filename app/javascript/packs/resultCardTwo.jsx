@@ -39,7 +39,7 @@ const Card = styled.div`
   position: relative;
   
   width: 100%;
-  //height:100%;
+  height:100%;
   
   display: grid;
   grid-template-columns: 5px minmax(10px, min-content) 1fr 5px;

@@ -19,7 +19,6 @@
     "react-router-dom": "^5.2.0",
     "react-spinkit": "^3.0.0",
     "styled-components": "^5.2.1",
-    "turbolinks": "^5.2.0",
     "use-fit-text": "^2.4.0"
   },
   "version": "0.1.0",

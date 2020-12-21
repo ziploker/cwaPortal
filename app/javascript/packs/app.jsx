@@ -14,6 +14,7 @@ import Header from './header'
 
 import Home from './home'
 import LookupSection from './lookupSection'
+import Section2 from './section2'
 
 import styled, { ThemeProvider } from 'styled-components'
 import GlobalStyles from "./global"
@@ -28,7 +29,7 @@ function App(controllerProps){
     //global APP state 
     const [appState, setAppState] = useState({
         
-        loggedInStatus: "NOT_LOGGED_IN",
+        loggedInStatus: "LOGGED_IN",
         emailStatus: "EMAIL_NOT_VERIFIED",
         test: "a",
         user: {},
@@ -106,9 +107,7 @@ function App(controllerProps){
                     setOpenSideMenu={setOpenSideMenu}
                 />
                 
-                <LookupSection ref={{LookupScrollToRef: LookupScrollToRef, LookupInputRef: LookupInputRef}}/>
-
-            
+                
                 
                 <Switch>
 
@@ -117,7 +116,9 @@ function App(controllerProps){
                     
                 </Switch>
 
-
+                <LookupSection appState={appState} ref={{LookupScrollToRef: LookupScrollToRef, LookupInputRef: LookupInputRef}}/>
+                <Section2 stories={appState.stories} appState={appState} setAppState={setAppState} />
+               
             </Router>
         
         </ThemeProvider>
