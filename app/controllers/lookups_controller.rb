@@ -158,6 +158,7 @@ class LookupsController < ApplicationController
       puts "=====================start: google api call results=================="
       puts "lat = " + @lat
       puts "lng = " + @lng
+      puts @openstatesApi
       puts "=====================end: google api call results=================="
       
       
