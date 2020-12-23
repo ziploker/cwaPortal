@@ -2,27 +2,46 @@ import React from 'react';
 
 import StyledSideMenu from './sidemenu.styled'
 import {Link} from 'react-router-dom';
+import styled from 'styled-components'
+
+
+const UL = styled.ul`
+
+  li{
+
+    cursor: pointer;
+  }
+
+
+`;
 
 const Menu = (props) => {
   return (
     <StyledSideMenu openSideMenu={props.openSideMenu}>
 
-      <ul>
+      <UL>
                 
-                    
-        <li key={1}><a href="#">News</a></li>
-        <li key={2}>
+
+        <li key={1}><a href="/">Home</a></li>
+        <li key={2}><a onClick={props.executeScroll}>Take Action</a></li>
+        <li key={3}><a href="#">Link1</a></li>
+        <li key={4}><a href="#">Link2</a></li>
         
-            <a onClick={props.executeScroll}>Representative Lookup</a>
+        {/* 
+        <li key={5}>
+
+            <li key={4}>{props.appState.loggedInStatus == "LOGGED_IN" ? [<Link key={"a"} to="/"> Logout | </Link>, <Link key={"b"} to="/edit">edit </Link>] :   [<Link key={"c"} to="/login"> Login |</Link>, <Link key={"d"} to="/signup"> Signup</Link>]  } </li>
+
         </li>
-        <li key={3}><a href="#">Store</a></li>
+        */}
+                    
+      
+
         
-
-        <li key={4}>{props.appState.loggedInStatus == "LOGGED_IN" ? [<Link key={"a"} to="/"> Logout | </Link>, <Link key={"b"} to="/edit">edit </Link>] :   [<Link key={"c"} to="/login"> Login |</Link>, <Link key={"d"} to="/signup"> Signup</Link>]  } </li>
                     
                     
 
-      </ul>
+      </UL>
       
     </StyledSideMenu>
   )

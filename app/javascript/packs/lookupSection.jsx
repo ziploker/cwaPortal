@@ -21,7 +21,7 @@ import useFitText from "use-fit-text";
 const BottomHalf = styled.div`
 
   
-  background-color: #D8DED9;
+  background-color: #edeaea;
   
 
 
@@ -94,51 +94,80 @@ const SubBanner = styled.h3`
 
 `;
 
+const AlternateEnding = styled.div`
+
+    
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat( 2, minmax(150px, 250px) );
+  
+  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) minmax(min-content, max-content);
+  
+  grid-column-gap: 20px;
+  grid-area: results;
+  padding: 20px 20px 50px 20px;
+  grid-template-areas:
+    "  cardOne     cardTwo  "
+    "cardOneInfo cardTwoInfo"
+    "     .           .     ";
+`;
+
 const Results = styled.div`
 
-    //background-color: ${props => props.theme.offWhite};
+  
   overflow: hidden;
-    display: grid;
-    //grid-template-columns: repeat( 2, minmax(210px,300px) );
-    grid-template-columns: minmax(240px, 250px) minmax(240px, 250px) minmax(450px,600px);
-    grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
-    grid-gap: 30px;
-    grid-area: results;
-    padding: 20px 20px;
+  display: grid;
+  
+  grid-template-columns: minmax(240px, 250px) minmax(240px, 250px) minmax(450px,600px);
+  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) minmax(min-content, max-content);
+  
+  grid-column-gap: 30px;
+  grid-area: results;
+  padding: 20px 20px 50px 20px;
+  grid-template-areas:
+    
+    
+    "  cardOne     cardTwo   demoLetter"
+    "cardOneInfo cardTwoInfo     demoLetter     "
+    "     .           .      demoLetter";
+    
+
+
+  @media screen and (max-width: 1050px){
+
+    grid-template-columns: minmax(150px, 240px) minmax(375px,600px);
+    grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 40px minmax(min-content, max-content) minmax(min-content, max-content);
+    
     grid-template-areas:
-      "cardOne cardTwo demoLetter"
-      "  .   .    demoLetter";
-      
+    
+    "cardOne demoLetter "
+    "cardOneInfo demoLetter"
+    "     .      demoLetter"
+    "cardTwo demoLetter "
+    "cardTwoInfo demoLetter";
 
+    
 
-    @media screen and (max-width: 1050px){
+  }
 
-      grid-template-columns: minmax(150px, 240px) minmax(375px,600px);
-      grid-template-areas:
-      "cardOne  demoLetter"
-      "cardTwo  demoLetter";
+  @media screen and (max-width: 631px){
 
-      
-
-    }
-
-    @media screen and (max-width: 631px){
-
-      grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content);
-      grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content);
-      grid-template-areas:
-      "cardOne cardTwo "
-      
-      "demoLetter demoLetter";
+    grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content);
+    grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 35px minmax(min-content, max-content);
+    grid-template-areas:
+    "cardOne cardTwo "
+    "cardOneInfo cardTwoInfo "
+    "    .         .        "
+    "demoLetter demoLetter";
 
 
 
-    }
-    //@media screen and (max-width: 600px){
+  }
+  //@media screen and (max-width: 600px){
 
-    //  grid-template-columns: minmax(210px,300px);
+  //  grid-template-columns: minmax(210px,300px);
 
-    //}
+  //}
 
     
 
@@ -147,6 +176,9 @@ const Results = styled.div`
 
 
 `;
+
+
+
 
 const To = styled.sub`
 
@@ -185,7 +217,7 @@ const From = styled.div`
 
   grid-area: from;
   font-size: .8em;
-  line-height: .9em;
+  line-height: 1.1em;
   align-self: flex-end;
 
 `;
@@ -227,6 +259,23 @@ const SendButton = styled.a`
 
 `;
 
+const CardOneInfo = styled.div`
+
+    grid-area: cardOneInfo;
+    justify-self: center;
+    align-self: start;
+    
+
+`;
+
+const CardTwoInfo = styled.div`
+  
+  grid-area: cardTwoInfo;
+  justify-self: center;
+  align-self: start;
+
+`;
+
 function Look_Up_Section (props, ref) {
 
   const locationFromHook = useLocation();
@@ -237,11 +286,14 @@ function Look_Up_Section (props, ref) {
   const [showCards, setShowCards] = React.useState( false )
   const [showSteps, setShowSteps] = React.useState( false )
   const [sendButtonClass, setSendButtonClass] = React.useState("button success")
-  //const [results, setResults] = React.useState( {"one":{"name":"Annette Taddeo","firstName":"Annette","lastName":"Taddeo","image":"http://www.flsenate.gov/PublishedContent/Senators/2018-2020/Photos/s40_5331.jpg","id":"ocd-person/ea190b03-d1ca-4d75-89c7-dca745386db7","email":"taddeo.annette.web@flsenate.gov","chamber":"Senate","party":"Democrat","parent":"Florida Legislature","district":"40","fullDistrict":"Florida State Senate district 40"},"two":{"name":"Juan Alfonso Fernandez-Barquin","firstName":"","lastName":"","image":"https://www.myfloridahouse.gov//FileStores/Web/Imaging/Member/4709.jpg","id":"ocd-person/a8c88fee-1915-4907-ae37-5755c4bff446","email":"JuanF.Barquin@myfloridahouse.gov","chamber":"House","party":"Republican","parent":"Florida Legislature","district":"119","fullDistrict":"Florida State House district 119"}} );
+  const [resultFromFlorida, setResultFromFlorida] = React.useState(true)
+  
+  //const [results, setResults] = React.useState( {"one":{"resultFromFlorida":"true","name":"Juan Alfonso Fernandez-Barquin","firstName":"","lastName":"","image":"https://www.myfloridahouse.gov//FileStores/Web/Imaging/Member/4709.jpg","id":"ocd-person/a8c88fee-1915-4907-ae37-5755c4bff446","email":"JuanF.Barquin@myfloridahouse.gov","chamber":"House","party":"Republican","parent":"Florida Legislature","district":"119","fullDistrict":"Florida State House district 119","fullDistrictTrunk":"Florida State House"},"two":{"name":"Annette Taddeo","firstName":"Annette","lastName":"Taddeo","image":"http://www.flsenate.gov/PublishedContent/Senators/2018-2020/Photos/s40_5331.jpg","id":"ocd-person/ea190b03-d1ca-4d75-89c7-dca745386db7","email":"taddeo.annette.web@flsenate.gov","chamber":"Senate","party":"Democrat","parent":"Florida Legislature","district":"40","fullDistrict":"Florida State Senate  ","fullDistrictTrunk":"Florida State Senate"}});
   const [results, setResults] = React.useState( {"one": {}, "two": {} });
 
   const [showStatusSpinner, setShowStatusSpinner] = React.useState (false)
   const [showStatusCheck, setShowStatusCheck] = React.useState (false)
+  const [showStatusCheck2, setShowStatusCheck2] = React.useState (false)
 
   const [status, setStatus] = React.useState ("")
   const [lastTermSearched, setLastTermSearched] = React.useState ('')
@@ -258,7 +310,8 @@ function Look_Up_Section (props, ref) {
 
   const [bullet1, setBullet1] = React.useState('NOT_COMPLETED')
   const [bullet2, setBullet2] = React.useState('NOT_COMPLETED')
-   
+  const [bullet1msg, setBullet1msg] = React.useState('Enter Address')
+  const [bullet2msg, setBullet2msg] = React.useState('Send Message')
 
   const [isSticky, setSticky] = useState(false);
   const stepsRef = useRef(null);
@@ -282,6 +335,8 @@ function Look_Up_Section (props, ref) {
     setSendButtonClass("button success animate")
     //e.target.classList.add('animate');
     setBullet2("COMPLETED")
+    setBullet2msg("Message Sent")
+    setShowStatusCheck2(true)
     //setTimeout(function(){
       //e.target.classList.remove('animate');
     //},6000);
@@ -342,6 +397,8 @@ function Look_Up_Section (props, ref) {
   
 
   useEffect(() => {
+
+    
     window.addEventListener('scroll', handleScroll);
 
     return () => {
@@ -361,11 +418,27 @@ function Look_Up_Section (props, ref) {
       <Lookup_Section_Wrapper>
 
         <Banner ref={LookupScrollToRef}> Take Action !!</Banner>
-        <SubBanner > Contact your state Representative </SubBanner>
+        <SubBanner > Contact your Florida State Representative </SubBanner>
 
         <div className={`sticky-wrapper${isSticky && showSteps ? ' sticky' : ''}`} ref={stepsRef}>
           
-          <Steps bullet1={bullet1} bullet2={bullet2} setBullet1={setBullet1} setBullet2={setBullet2}>
+          <Steps 
+            resultFromFlorida={resultFromFlorida} 
+            
+            setShowStatusCheck={setShowStatusCheck} 
+            setShowStatusCheck2={setShowStatusCheck2}
+            
+            showStatusCheck={showStatusCheck} 
+            showStatusCheck2={showStatusCheck2}
+            
+            bullet1msg={bullet1msg} 
+            bullet2msg={bullet2msg} 
+            
+            bullet1={bullet1} 
+            bullet2={bullet2} 
+            
+            setBullet1={setBullet1} 
+            setBullet2={setBullet2}>
 
           </Steps>
         </div>
@@ -378,6 +451,8 @@ function Look_Up_Section (props, ref) {
           setCoordinates={setCoordinates} 
           showStatusCheck={showStatusCheck} 
           setShowStatusCheck={setShowStatusCheck} 
+          showStatusCheck2={showStatusCheck2} 
+          setShowStatusCheck2={setShowStatusCheck2}
           status={status} 
           setStatus={setStatus} 
           lastTermSearched={lastTermSearched} 
@@ -399,53 +474,108 @@ function Look_Up_Section (props, ref) {
           setShowSteps={setShowSteps}
           setSendButtonClass={setSendButtonClass}
           sendButtonRef={sendButtonRef}
+          setBullet1msg={setBullet1msg}
+          setBullet2msg={setBullet2msg}
+
+          setResultFromFlorida={setResultFromFlorida}
+          resultFromFlorida={resultFromFlorida}
         />
 
-        <Results>
-          <ResultCardOne showCards={showCards} results={results} />
+        
+        {resultFromFlorida == "true" ? (
+         <Results>
+            
+            
+            <ResultCardOne showCards={showCards} results={results} />
+            <CardOneInfo><sub>{results.one.fullDistrictTrunk}</sub></CardOneInfo>
+            
+            <ResultCardTwo showCards={showCards} results={results} />
+            <CardTwoInfo><sub>{results.two.fullDistrictTrunk}</sub></CardTwoInfo>
 
-          <ResultCardTwo showCards={showCards} results={results} />
+            <DemoLetter showCards={showCards} results={results}>
+              <Letter>
+                
+                <To>recipients:</To>
+                <Email1>{results.one.email}</Email1>
+                <Email2>{results.two.email}</Email2>
+                
+                <Message>
 
-          <DemoLetter showCards={showCards} results={results}>
-            <Letter>
-              
-              <To>recipients:</To>
-              <Email1>{results.one.email}</Email1>
-              <Email2>{results.two.email}</Email2>
-              
-              <Message>
-                
-                This is a test message. I am a constituant of 
-                <i style={{fontSize: ".8em"}}>({results.one.fullDistrict}/{results.two.fullDistrict})</i> 
-                to be sent and displasdfsgsdg. Dsdfgsdfs sdfsf sdfsd sdfs.
-                
-                By treating marijuana like alcohol, we can take sales out of the hands of drug cartels in the underground criminal market and put them behind the counters of state-licensed businesses that are creating jobs and paying taxes.
-                Law enforcement officials’ time and resources could be better spent addressing violent and otherwise serious crimes instead of arresting and prosecuting adults for using marijuana. For example, in Houston alone, over 15,000 burglaries with viable leads went uninvestigated in 2013. During that same time period, over 74,000 arrests for possession of marijuana occurred in Texas. Clearly, our tax dollars and our law enforcement priorities need to be redirected.
-
-                
-                
-              </Message>
-              
-              <From>
-
-                Sincerely, <br/>
-                Alejandro Raffo <br/>
-                <span ref={textRef} style={{fontSize}}>{lastTermSearched} </span><br/>
-                sdfsdfsdsdc@sdfsdfsdf.com
-
-              </From>
-              
-              <SendButton>
-                
-                
-                <div className="wrapper">
-                  <div ref={sendButtonRef} className="block" onClick={animateButton}><button className={props.appState.loggedInStatus == "LOGGED_IN" ? sendButtonClass : "button error"}>Send</button></div>
+                  Dear <i style={{fontSize: ".8em"}}>Representative/Senator,</i><br/><br/>
                   
-                </div>
-              </SendButton>
-            </Letter>
-          </DemoLetter>
-        </Results>
+                  
+                  <p style={{textIndent: "4em"}}>
+                    I am a constituant of <i style={{fontSize: ".8em"}}>({results.one.fullDistrict}/{results.two.fullDistrictTrunk} district {results.two.district}).</i> 
+                    
+                    I am writing on behalf of legalizing marijuana to all above the age of eighteen. 
+                    Marijuana is as much a recreational drug as alcohol, tobacco, and even coffee. 
+                    Marijuana has never had a report of fatal use and the common use for medical 
+                    purposes has been proved and even infused into society today. Many states today 
+                    have legalized it's medical purposes because it has proven to help certain illnesses 
+                    including glaucoma,  sclerosis, and cancers such as breast and brain cancer. 
+                    Prohibition has only cost billions of dollars and studies prove that it has not 
+                    affected the use of marijuana, in fact it has made it cheaper and more accessible. 
+                    All the money used for prosecution of small offenders can be used for tax revenues 
+                    and ultimately save billions.  
+                  </p><br/>
+
+                  <p style={{textIndent: "4em"}}>
+                  
+                    With your help general change could be possible. We recommend commercial production 
+                    be limited to licensed producers although non retail and home production is allowed. 
+                    Quality control and retail will also be limited by the state and state licensed 
+                    distributors. The state will make up all laws that go towards this new legalization 
+                    but mainly the important thing is that it is legal. Marijuana is a herbal and proven 
+                    remedy that with its ban is causing more problems than its fixing.
+                  </p><br/>
+                  
+                  <p style={{textIndent: "4em"}}>
+                    By treating marijuana like alcohol, we can take sales out of the hands of drug cartels 
+                    in the underground criminal market and put them behind the counters of state-licensed 
+                    businesses that are creating jobs and paying taxes.
+                    Law enforcement officials’ time and resources could be better spent addressing violent 
+                    and otherwise serious crimes instead of arresting and prosecuting adults for using 
+                    marijuana. 
+                  </p>
+
+                  
+                  
+                </Message>
+                
+                <From>
+
+                  Sincerely, <br/>
+                  <sub>Your Name Here</sub> <br/>
+                  <span ref={textRef} style={{fontSize}}>{lastTermSearched} </span><br/>
+                  <sub>Your Email Here</sub> <br/>
+
+                </From>
+                
+                <SendButton>
+                  
+                  
+                  <div className="wrapper">
+                    <div ref={sendButtonRef} className="block" onClick={animateButton}><button className={props.appState.loggedInStatus == "LOGGED_IN" ? sendButtonClass : sendButtonClass}>Send</button></div>
+                    
+                  </div>
+                </SendButton>
+              </Letter>
+            </DemoLetter>
+          </Results>
+        ):(
+
+
+          <AlternateEnding>
+            <ResultCardOne showCards={showCards} results={results} />
+            <CardOneInfo><sub>{results.one.fullDistrictTrunk ? "*" + results.two.fullDistrictTrunk : null }</sub></CardOneInfo>
+            <ResultCardTwo showCards={showCards} results={results} />
+            <CardTwoInfo><sub>{results.two.fullDistrictTrunk ? "*" + results.two.fullDistrictTrunk : null }</sub></CardTwoInfo>
+          </AlternateEnding>
+
+        )}
+
+
+
         
       </Lookup_Section_Wrapper>
     

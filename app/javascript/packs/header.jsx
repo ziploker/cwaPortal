@@ -238,20 +238,21 @@ function Header(props) {
                 <ul>
                 
                     
-                    <li key={1}><a href="/">News</a></li>
+                    <li key={1}><a href="/">Home</a></li>
                     <li key={2}>
                     
-                        <a onClick={props.executeScroll}>Representative Lookup</a>
+                        <a onClick={props.executeScroll}>Take Action</a>
                     </li>
-                    <li key={3}><a href="/">Store</a></li>
+                    <li key={3}><a href="#">Link1</a></li>
+                    <li key={4}><a href="#">Link2</a></li>
                     
-
+                    {/* 
                     <li key={5}>
 
                         {props.appState.loggedInStatus == "LOGGED_IN" ? <SmallProfilePic src={props.appState.user.avatar_url}/> : <SmallProfilePicPlaceholder/>}
 
                     </li>
-
+                    */}
                 </ul>
 
             </DesktopNav>

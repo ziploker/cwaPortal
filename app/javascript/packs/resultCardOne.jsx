@@ -16,7 +16,7 @@ const ResultCardWrapper = styled.div`
   justify-items: center;
   width: 100%;
   height: 100%;
-  min-width: 150px;
+  min-width: 140px;
   
   max-height: ${ props => props.showCards.toString() == "false" ? "0px" : "100%"};
   opacity: ${ props => props.showCards.toString() == "false" ? "0" : "1"};

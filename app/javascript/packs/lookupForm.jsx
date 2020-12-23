@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import $ from 'jquery';
 import greenCheck from '../../assets/images/greenCheck.png'
 import searchIcon from '../../assets/images/search.png'
-import searchIconOrange from '../../assets/images/searchPink.png'
+import searchIconOrange from '../../assets/images/searchDarkRed.png'
 import searchIconOrange2 from '../../assets/images/searchPink2.png'
 
 import PlacesAutocomplete, {
@@ -116,6 +116,7 @@ const StatusBar = styled.div`
   opacity: 1;
   transition: opacity .4s;
   transition-timing-function: ease-in;
+  
 
 `;
 
@@ -127,6 +128,7 @@ const StatusSpinner = styled.div`
   opacity: ${ props => props.showStatusSpinner.toString() == "true" ? "1" : "0"};
   transition: opacity .4s;
   transition-timing-function: ease-out;
+  margin-left: 8px;
 
 `;
 
@@ -159,6 +161,7 @@ const ResultSpan = styled.div`
 
 const Span = styled.span`
 
+  display: ${props => props.status == "Search Complete!!" ? "none" : "Block"};
   height: 100%;
   font-size: .75em;
   transition: opacity 2s ease-in;
@@ -242,6 +245,10 @@ function Lookup(props, ref) {
       if (props.bullet2 == "COMPLETED"){
 
         props.setSendButtonClass("button success")
+        props.setShowStatusCheck2(false)
+        props.setBullet2msg("Send Message")
+
+        props.setBullet2("NOT_COMPLETED");
 
       }
 
@@ -290,14 +297,38 @@ function Lookup(props, ref) {
             })
             .then(response => response.json() )
             .then(data => {
-              props.setStatus("Search Complete!!")
+              //props.setStatus("Search Complete!!")
+              
+              //info message under the address search input box
+              props.setStatus("")
+
+              //message on bullet 1
+              
+              props.setBullet1msg("Search Complete!")
               props.setShowStatusSpinner(false)
               props.setShowStatusCheck(true)
               props.setShowCards(true)
-              props.setShowSteps(true)
+              
               props.setBullet1("COMPLETED")
-              props.setBullet2("NOT_COMPLETED")
+              
               props.setResults(data)
+              
+              props.setResultFromFlorida(data.one.resultFromFlorida.toString())
+
+              let flag = data.one.resultFromFlorida.toString()
+
+              console.log("FLAG IS "+ flag )
+
+              if (flag == "false") {
+                
+                props.setBullet2msg("Non-Florida");
+                props.setBullet2("COMPLETED")
+                props.setShowStatusCheck2(true)
+              }else{
+                props.setBullet2msg("Send Message");
+                props.setShowSteps(true)
+
+              }
               
             })
         
@@ -332,14 +363,34 @@ function Lookup(props, ref) {
         })
         .then(response => response.json() )
         .then(data => {
-          props.setStatus("Search Complete!!")
+          //props.setStatus("Search Complete!!")
+          props.setStatus("")
+          props.setBullet1msg("Search Complete!")
           props.setShowStatusSpinner(false)
           props.setShowStatusCheck(true)
           props.setShowCards(true)
-          props.setShowSteps(true)
+          
           props.setBullet1("COMPLETED")
-          props.setBullet2("NOT_COMPLETED")
+          
           props.setResults(data)
+          
+          props.setResultFromFlorida(data.one.resultFromFlorida.toString())
+
+          let flag = data.one.resultFromFlorida.toString()
+
+          console.log("FLAG IS "+ flag )
+
+          if (flag == "false") {
+                
+            props.setBullet2msg("non-Florida");
+            props.setBullet2("COMPLETED")
+            props.setShowStatusCheck2(true)
+            
+          }else{
+            props.setBullet2msg("Send Message");
+            props.setShowSteps(true);
+
+          }
           
         })
       }
@@ -448,8 +499,9 @@ function Lookup(props, ref) {
                 //props.setFirstMatch(suggestions.values().next().value.description)
               
                 const style = suggestion.active
-                  ? { backgroundColor: '#56c5cc', cursor: 'pointer' }
+                  ? { backgroundColor: '#5FCC61', cursor: 'pointer' }
                   : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  
                 
                 return (
                 
@@ -476,11 +528,11 @@ function Lookup(props, ref) {
         <StatusBar>
           
           <Span status={props.status}> {props.status}</Span>
-          <CheckMark showStatusCheck={props.showStatusCheck} src={greenCheck}></CheckMark>
+          
         </StatusBar>
       
         <StatusSpinner showStatusSpinner={props.showStatusSpinner}>
-          <Spinner name='wave' color='#56c5cc' />
+          <Spinner name='wave' color='#8c0000' />
         </StatusSpinner>
 
       </StatusHolder>   

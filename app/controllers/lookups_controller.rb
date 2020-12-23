@@ -114,7 +114,7 @@ class LookupsController < ApplicationController
   
   
       #object to be sent to frontend
-      sendToFrontEnd = {"one" => {"name" => "", "firstName" => "", "lastName" => "", "image" => "", "id" => "", "email" => "", "chamber" => "", "party" => "", "parent" => "", "district" => "", "fullDistrict" => "", "fullDistrictTrunk" => ""}, "two" => {"name" => "", "firstName" => "", "lastName" => "", "image" => "", "id" => "", "email" => "", "chamber" => "", "party" => "", "parent" => "", "district" => "", "fullDistrict" => "", "fullDistrictTrunk" => ""}}
+      sendToFrontEnd = {"one" => {"resultFromFlorida" => "true", "name" => "", "firstName" => "", "lastName" => "", "image" => "", "id" => "", "email" => "", "chamber" => "", "party" => "", "parent" => "", "district" => "", "fullDistrict" => "", "fullDistrictTrunk" => ""}, "two" => {"name" => "", "firstName" => "", "lastName" => "", "image" => "", "id" => "", "email" => "", "chamber" => "", "party" => "", "parent" => "", "district" => "", "fullDistrict" => "", "fullDistrictTrunk" => ""}}
   
   
       #disable any views being rendered
@@ -130,6 +130,7 @@ class LookupsController < ApplicationController
       #get api keys 
 
       @googleGeoApiUr = Rails.application.credentials.dig(:GOOGLE_API)
+      @openstatesApi = Rails.application.credentials.dig(:OPENSTATES_API)
       
            
       
@@ -170,7 +171,7 @@ class LookupsController < ApplicationController
           method: 'POST',
           
           headers: { "Content-Type" => "application/json",
-                      "X-API-KEY" => "70717a1b-75dc-45cc-82cd-5ba4725e4f0d"},
+                      "X-API-KEY" => "#{@openstatesApi}"},
           
           body: '{"query" : '+ primaryOpenStatesQuery + '}'
       }).to_dot
@@ -254,6 +255,12 @@ class LookupsController < ApplicationController
       puts "return if results are not from florida"
   
       if sendToFrontEnd["one"]["parent"] != "Florida Legislature" && sendToFrontEnd["two"]["parent"] != "Florida Legislature"
+        
+        sendToFrontEnd["one"]["resultFromFlorida"] = "false"
+
+        puts "=====================start: update hash with results from query =================="
+        puts sendToFrontEnd
+        puts "=====================end: update hash with results from query =================="
         render json: sendToFrontEnd.to_json
         return
       end
@@ -267,7 +274,7 @@ class LookupsController < ApplicationController
           method: 'POST',
           
           headers: { "Content-Type" => "application/json",
-                      "X-API-KEY" => "70717a1b-75dc-45cc-82cd-5ba4725e4f0d"},
+                      "X-API-KEY" => "#{@openstatesApi}"},
           
           body: '{"query" : '+ openStatesQuery2of3 + '}'
       }).to_dot
@@ -316,7 +323,7 @@ class LookupsController < ApplicationController
           method: 'POST',
           
           headers: { "Content-Type" => "application/json",
-                      "X-API-KEY" => "70717a1b-75dc-45cc-82cd-5ba4725e4f0d"},
+                      "X-API-KEY" => "#{@openstatesApi}"},
           
           body: '{"query" : '+ openStatesQuery3of3 + '}'
       }).to_dot
