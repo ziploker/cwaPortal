@@ -153,7 +153,7 @@ const Results = styled.div`
   @media screen and (max-width: 631px){
 
     grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content);
-    grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 35px minmax(min-content, max-content);
+    grid-template-rows: minmax(204px, max-content) minmax(min-content, max-content) 35px minmax(min-content, max-content);
     grid-template-areas:
     "cardOne cardTwo "
     "cardOneInfo cardTwoInfo "
