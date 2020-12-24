@@ -127,9 +127,7 @@ const AlternateEnding = styled.div`
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat( 2, minmax(150px, 250px) );
-  //grid-template-rows: minmax(210px, max-content) minmax(min-content, max-content) 35px;
-
-  //grid-template-rows: minmax(210px, max-content) minmax(min-content, max-content) minmax(min-content, max-content);
+  grid-template-rows: minmax(300px, auto) minmax(35px, 45px) 35px;
   
   grid-column-gap: 20px;
   grid-area: results;
@@ -147,7 +145,7 @@ const Results = styled.div`
   display: grid;
   
   grid-template-columns: minmax(240px, 250px) minmax(240px, 250px) minmax(450px,600px);
-  grid-template-rows: minmax(0px, auto) minmax(min-content, max-content) minmax(min-content, max-content);
+  grid-template-rows: minmax(300px, auto) minmax(35px, 45px) minmax(min-content, max-content);
   
   grid-column-gap: 30px;
   grid-area: results;
@@ -164,7 +162,7 @@ const Results = styled.div`
   @media screen and (max-width: 1050px){
 
     grid-template-columns: 230px minmax(375px,650px);
-    grid-template-rows: 290px minmax(40px, 50px) 23px minmax(210px, 300px) minmax(40px, 50px) 1fr;
+    grid-template-rows: 290px minmax(40px, 50px) 23px 290px minmax(40px, 50px) 1fr;
     
     grid-template-areas:
     
@@ -182,7 +180,7 @@ const Results = styled.div`
   @media screen and (max-width: 631px){
 
     grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content);
-    grid-template-rows: minmax(210px, max-content) minmax(min-content, max-content) 35px minmax(min-content, max-content);
+    grid-template-rows: minmax(210px, max-content) minmax(35px, 45px) 35px 1fr;
     grid-template-areas:
     "cardOne cardTwo "
     "cardOneInfo cardTwoInfo "
