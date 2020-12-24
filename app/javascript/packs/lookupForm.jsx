@@ -32,7 +32,7 @@ const Form = styled.form`
   
   width: 100%;
   max-width: 555px;
-  margin: 30px 0px 20px 0px;
+  //margin: 30px 0px 20px 0px;
   grid-area: form;
   
 
@@ -532,7 +532,7 @@ function Lookup(props, ref) {
         </StatusBar>
       
         <StatusSpinner showStatusSpinner={props.showStatusSpinner}>
-          <Spinner name='wave' color='#8c0000' />
+          <Spinner name='wave' color='#87d388' />
         </StatusSpinner>
 
       </StatusHolder>   

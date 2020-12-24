@@ -28,6 +28,8 @@ const StepsContainer = styled.div`
     
         
         display: grid;
+        
+        
         height: 75px;
         min-width: 300px;
         max-width: 750px;

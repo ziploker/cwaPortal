@@ -10,7 +10,7 @@ import '../../assets/stylesheets/steps.scss'
 import '../../assets/stylesheets/sendButton'
 
 import useFitText from "use-fit-text";
-
+import megaphone from '../../assets/images/megaphone'
 
 
 
@@ -33,18 +33,22 @@ const Lookup_Section_Wrapper = styled.div`
     
   display: grid;
   //grid-gap: 25px;
-  //padding: 25px;
-  grid-template-columns: minmax(150px, 1fr);
-  //grid-template-rows: 90px minmax(min-content, 360px) minmax(min-content, 360px);
+  padding: 25px 10px;
+  grid-column-gap: 30px;
+  grid-template-columns: 30% minmax(150px, 1fr);
+  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 20px minmax(min-content, max-content) 8px minmax(min-content, max-content) minmax(min-content, max-content) 25px;
   justify-content: center;
   justify-items: center;
   grid-template-areas:
           
-          "banner"
-          "subbanner"
-          "steps"
-          "form"
-          "results";
+          "megaphone  banner"
+          "megaphone  subbanner"
+          "   .           .    "
+          "  steps         steps"
+          "  .              .   "
+          "   form         form"
+          " results        results"
+          " .                 .   ";
 
 
   //margin-top: 25px;
@@ -70,15 +74,36 @@ const Lookup_Section_Wrapper = styled.div`
     
 `;
 
+const BannerWrapper = styled.div`
+
+  
+
+
+`;
+
+const MegaPhone = styled.img`
+
+  width: 50px;
+  height: 75px;
+  transform: scaleX(-1);
+  grid-area: megaphone;
+  justify-self: end;
+  align-self: flex-end; 
+
+
+
+`;
+
 const Banner = styled.h1`
 
 
   grid-area: banner; 
-  padding: 60px 10px 0px 10px;
+  //padding: 60px 10px 0px 10px;
   //margin-bottom: 20px;
   
-  text-align: center;
-  align-self: flex-end;
+  //text-align: center;
+  justify-self: start;
+  
   line-height: 120%;
   
 
@@ -88,9 +113,11 @@ const SubBanner = styled.h3`
 
 
   grid-area: subbanner; 
-  margin-bottom: 20px;
   
-  text-align: center;
+  justify-self: start;
+  align-self: end;
+  text-align: start;
+  
 
 `;
 
@@ -100,12 +127,13 @@ const AlternateEnding = styled.div`
   overflow: hidden;
   display: grid;
   grid-template-columns: repeat( 2, minmax(150px, 250px) );
-  
-  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) minmax(min-content, max-content);
+  //grid-template-rows: minmax(210px, max-content) minmax(min-content, max-content) 35px;
+
+  //grid-template-rows: minmax(210px, max-content) minmax(min-content, max-content) minmax(min-content, max-content);
   
   grid-column-gap: 20px;
   grid-area: results;
-  padding: 20px 20px 50px 20px;
+  //padding: 20px 20px 50px 20px;
   grid-template-areas:
     "  cardOne     cardTwo  "
     "cardOneInfo cardTwoInfo"
@@ -119,11 +147,11 @@ const Results = styled.div`
   display: grid;
   
   grid-template-columns: minmax(240px, 250px) minmax(240px, 250px) minmax(450px,600px);
-  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) minmax(min-content, max-content);
+  grid-template-rows: minmax(0px, auto) minmax(min-content, max-content) minmax(min-content, max-content);
   
   grid-column-gap: 30px;
   grid-area: results;
-  padding: 20px 20px 50px 20px;
+  //padding: 20px 20px 50px 20px;
   grid-template-areas:
     
     
@@ -135,16 +163,17 @@ const Results = styled.div`
 
   @media screen and (max-width: 1050px){
 
-    grid-template-columns: minmax(150px, 240px) minmax(375px,600px);
-    grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 40px minmax(min-content, max-content) minmax(min-content, max-content);
+    grid-template-columns: 230px minmax(375px,650px);
+    grid-template-rows: 290px minmax(40px, 50px) 23px minmax(210px, 300px) minmax(40px, 50px) 1fr;
     
     grid-template-areas:
     
-    "cardOne demoLetter "
+    "  cardOne   demoLetter "
     "cardOneInfo demoLetter"
-    "     .      demoLetter"
-    "cardTwo demoLetter "
-    "cardTwoInfo demoLetter";
+    "     .      demoLetter   "
+    "  cardTwo   demoLetter"
+    "cardTwoInfo demoLetter "
+    "     .      demoLetter";
 
     
 
@@ -153,7 +182,7 @@ const Results = styled.div`
   @media screen and (max-width: 631px){
 
     grid-template-columns: minmax(min-content, max-content) minmax(min-content, max-content);
-    grid-template-rows: minmax(204px, max-content) minmax(min-content, max-content) 35px minmax(min-content, max-content);
+    grid-template-rows: minmax(210px, max-content) minmax(min-content, max-content) 35px minmax(min-content, max-content);
     grid-template-areas:
     "cardOne cardTwo "
     "cardOneInfo cardTwoInfo "
@@ -416,13 +445,15 @@ function Look_Up_Section (props, ref) {
       {console.log("rendering lookupSection")}
         
       <Lookup_Section_Wrapper>
-
+        
+        <MegaPhone src={megaphone}></MegaPhone>
         <Banner ref={LookupScrollToRef}> Take Action !!</Banner>
+      
         <SubBanner > Contact your Florida State Representative </SubBanner>
 
-        <div className={`sticky-wrapper${isSticky && showSteps ? ' sticky' : ''}`} ref={stepsRef}>
+        <div style={{gridArea: "steps", justifySelf: "center"}} className={`sticky-wrapper${isSticky && showSteps ? ' sticky' : ''}`} ref={stepsRef}>
           
-          <Steps 
+          <Steps
             resultFromFlorida={resultFromFlorida} 
             
             setShowStatusCheck={setShowStatusCheck} 
