@@ -32,15 +32,15 @@ const StepsContainer = styled.div`
         
         height: 75px;
         min-width: 300px;
-        max-width: 750px;
+        max-width: 400px;
         width: 100vw;
         //padding: 20px;
         margin: 0 auto;
         align-items:center;
-        //grid-gap: 5px;
-        justify-content: center;
+        grid-row-gap: 4px;
+        justify-content: start;
         grid-template-columns: repeat(18, 1fr);
-        grid-template-rows: 1fr 1fr 8px;
+        grid-template-rows: 25px 25px 8px;
         grid-template-areas:
         
             " step1 step1 step1 step1 step1 step1 step2 step2 step2 step2 step2 step2 step3 step3 step3 step3 step3 step3"
@@ -55,7 +55,7 @@ const StepsContainer = styled.div`
         text-align: center;
         grid-area: step1;
         //color: #5fcc61;
-        font-size: .666em;
+        font-size: .56em;
         
         
         
@@ -66,7 +66,7 @@ const StepsContainer = styled.div`
         text-align: center;
         grid-area: step2;
         //color: #5fcc61;
-        font-size: .666em;
+        font-size: .56em;
 
 
 
@@ -77,7 +77,7 @@ const StepsContainer = styled.div`
         text-align: center;
         grid-area: step3;
         //color: #5fcc61;
-        font-size: .666em;
+        font-size: .56em;
         
         
         
@@ -232,7 +232,7 @@ function Steps(props){
             <Bullet1wrapper bullet1={props.bullet1} bullet2={props.bullet2} >
 
                 <Bullet1 bullet1={props.bullet1} bullet2={props.bullet2}>
-                    <h5 style={{padding: "5px"}}>1</h5>
+                    <h5 style={{padding: "3px"}}>1</h5>
                 </Bullet1>
                 
             </Bullet1wrapper>    
@@ -240,14 +240,14 @@ function Steps(props){
 
             <Bullet2wrapper bullet1={props.bullet1} bullet2={props.bullet2} >
                 <Bullet2 bullet1={props.bullet1} bullet2={props.bullet2}>
-                <h5 style={{padding: "5px"}}>2</h5>
+                <h5 style={{padding: "3px"}}>2</h5>
                 </Bullet2>   
             </Bullet2wrapper>
 
             
             <Bullet3wrapper bullet1={props.bullet1} bullet2={props.bullet2} >
                 <Bullet3 bullet1={props.bullet1} bullet2={props.bullet2}>
-                <h5 style={{padding: "5px"}}>3</h5>
+                <h5 style={{padding: "3px"}}>3</h5>
                 </Bullet3>  
             </Bullet3wrapper>              
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import $ from 'jquery';
 import greenCheck from '../../assets/images/greenCheck.png'
 import searchIcon from '../../assets/images/search.png'
-import searchIconOrange from '../../assets/images/searchDarkRed.png'
+import searchIconOrange from '../../assets/images/searchGreen.png'
 import searchIconOrange2 from '../../assets/images/searchPink2.png'
 
 import PlacesAutocomplete, {
@@ -31,7 +31,7 @@ const Form = styled.form`
   justify-content: center;
   
   width: 100%;
-  max-width: 555px;
+  max-width: 600px;
   //margin: 30px 0px 20px 0px;
   grid-area: form;
   
@@ -321,7 +321,7 @@ function Lookup(props, ref) {
 
               if (flag == "false") {
                 
-                props.setBullet2msg("Non-Florida");
+                props.setBullet2msg("Non-Florida result");
                 props.setBullet2("COMPLETED")
                 props.setShowStatusCheck2(true)
               }else{
@@ -382,7 +382,7 @@ function Lookup(props, ref) {
 
           if (flag == "false") {
                 
-            props.setBullet2msg("non-Florida");
+            props.setBullet2msg("non-Florida result");
             props.setBullet2("COMPLETED")
             props.setShowStatusCheck2(true)
             

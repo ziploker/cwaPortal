@@ -34,25 +34,29 @@ const Lookup_Section_Wrapper = styled.div`
   display: grid;
   //grid-gap: 25px;
   padding: 25px 10px;
-  grid-column-gap: 30px;
-  grid-template-columns: 30% minmax(150px, 1fr);
-  grid-template-rows: minmax(min-content, max-content) minmax(min-content, max-content) 20px minmax(min-content, max-content) 8px minmax(min-content, max-content) minmax(min-content, max-content) 25px;
+  grid-column-gap: 20px;
+  grid-template-columns: 38% minmax(150px, 1fr);
+  grid-template-rows: 50px minmax(0px, 50px) minmax(0px, 33px) 55px minmax(min-content, max-content) 10px minmax(min-content, max-content) 20px minmax(min-content, max-content) 50px;
   justify-content: center;
   justify-items: center;
   grid-template-areas:
-          
+          "   .         .    "
           "megaphone  banner"
           "megaphone  subbanner"
-          "   .           .    "
+          "   hr          hr   "
           "  steps         steps"
           "  .              .   "
           "   form         form"
+          "   .            .    "
           " results        results"
           " .                 .   ";
 
 
   //margin-top: 25px;
   //background-color: #F9F9F9;
+  @media screen and (max-width: 800px){
+    grid-template-columns: 30% minmax(150px, 1fr);
+  }
 
 /*  //screen and (min-width: 750px)\
 */
@@ -83,8 +87,8 @@ const BannerWrapper = styled.div`
 
 const MegaPhone = styled.img`
 
-  width: 50px;
-  height: 75px;
+  //justify-selfwidth: 50px;
+  height: 100%;
   transform: scaleX(-1);
   grid-area: megaphone;
   justify-self: end;
@@ -103,8 +107,8 @@ const Banner = styled.h1`
   
   //text-align: center;
   justify-self: start;
-  
-  line-height: 120%;
+  align-self: flex-end;
+  line-height: 90%;
   
 
 `;
@@ -113,11 +117,12 @@ const SubBanner = styled.h3`
 
 
   grid-area: subbanner; 
-  
+  font-size: .7em;
   justify-self: start;
-  align-self: end;
+  align-self: start;
+  padding-top: 5px;
   text-align: start;
-  
+  line-height: 90%;
 
 `;
 
@@ -125,9 +130,10 @@ const AlternateEnding = styled.div`
 
     
   overflow: hidden;
-  display: grid;
+  display: ${props => props.showCards ? "grid" : "block"};
   grid-template-columns: repeat( 2, minmax(150px, 250px) );
-  grid-template-rows: minmax(300px, auto) minmax(35px, 45px) 35px;
+  //grid-template-rows: minmax(300px, auto) minmax(35px, 45px) 35px;
+  grid-template-rows: minmax(210px, auto) minmax(35px, 45px) 35px;
   
   grid-column-gap: 20px;
   grid-area: results;
@@ -142,7 +148,7 @@ const Results = styled.div`
 
   
   overflow: hidden;
-  display: grid;
+  display: ${props => props.showCards ? "grid" : "block"};
   
   grid-template-columns: minmax(240px, 250px) minmax(240px, 250px) minmax(450px,600px);
   grid-template-rows: minmax(300px, auto) minmax(35px, 45px) minmax(min-content, max-content);
@@ -303,6 +309,23 @@ const CardTwoInfo = styled.div`
 
 `;
 
+const Hr = styled.hr`
+  
+  grid-area: hr;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+  width: 83vw;
+  align-self: start;
+
+
+
+
+`;
+
 function Look_Up_Section (props, ref) {
 
   const locationFromHook = useLocation();
@@ -442,12 +465,14 @@ function Look_Up_Section (props, ref) {
 
       {console.log("rendering lookupSection")}
         
-      <Lookup_Section_Wrapper>
+      <Lookup_Section_Wrapper ref={LookupScrollToRef}>
         
         <MegaPhone src={megaphone}></MegaPhone>
-        <Banner ref={LookupScrollToRef}> Take Action !!</Banner>
+        <Banner > Take Action!!</Banner>
       
-        <SubBanner > Contact your Florida State Representative </SubBanner>
+        <SubBanner> Contact your Florida State Representative </SubBanner>
+
+        <Hr></Hr>
 
         <div style={{gridArea: "steps", justifySelf: "center"}} className={`sticky-wrapper${isSticky && showSteps ? ' sticky' : ''}`} ref={stepsRef}>
           
@@ -512,14 +537,14 @@ function Look_Up_Section (props, ref) {
 
         
         {resultFromFlorida == "true" ? (
-         <Results>
+         <Results showCards={showCards}>
             
             
             <ResultCardOne showCards={showCards} results={results} />
-            <CardOneInfo><sub>{results.one.fullDistrictTrunk}</sub></CardOneInfo>
+            <CardOneInfo><sub style={{fontSize: ".7em"}}>{results.one.fullDistrictTrunk}</sub></CardOneInfo>
             
             <ResultCardTwo showCards={showCards} results={results} />
-            <CardTwoInfo><sub>{results.two.fullDistrictTrunk}</sub></CardTwoInfo>
+            <CardTwoInfo><sub style={{fontSize: ".7em"}}>{results.two.fullDistrictTrunk}</sub></CardTwoInfo>
 
             <DemoLetter showCards={showCards} results={results}>
               <Letter>
@@ -594,9 +619,9 @@ function Look_Up_Section (props, ref) {
         ):(
 
 
-          <AlternateEnding>
+          <AlternateEnding showCards={showCards}>
             <ResultCardOne showCards={showCards} results={results} />
-            <CardOneInfo><sub>{results.one.fullDistrictTrunk ? "*" + results.two.fullDistrictTrunk : null }</sub></CardOneInfo>
+            <CardOneInfo><sub>{results.one.fullDistrictTrunk ? "*" + results.one.fullDistrictTrunk : null }</sub></CardOneInfo>
             <ResultCardTwo showCards={showCards} results={results} />
             <CardTwoInfo><sub>{results.two.fullDistrictTrunk ? "*" + results.two.fullDistrictTrunk : null }</sub></CardTwoInfo>
           </AlternateEnding>

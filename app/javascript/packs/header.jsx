@@ -141,7 +141,12 @@ function Header(props) {
     const ref = React.useRef();
     //const navbar = React.createRef();
     
-    
+    function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
     
     function mouseDownHandler(){
         
@@ -238,7 +243,7 @@ function Header(props) {
                 <ul>
                 
                     
-                    <li key={1}><a href="/">Home</a></li>
+                    <li key={1}><a onClick={scrollToTop}>Home</a></li>
                     <li key={2}>
                     
                         <a onClick={props.executeScroll}>Take Action</a>

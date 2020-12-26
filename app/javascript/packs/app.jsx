@@ -69,6 +69,8 @@ function App(controllerProps){
     const scrollToRef = (ref) => {
         
         window.scrollTo(0, ref.current.offsetTop)
+
+        
         setOpenSideMenu(false)
         LookupInputRef.current.focus();
 
