@@ -432,16 +432,16 @@ function Look_Up_Section (props, ref) {
       
   }
 
-  if (
+  //if (
     
-    locationFromHook.pathname === "/login" || 
-    locationFromHook.pathname === "/signup" ||
-    locationFromHook.pathname === "/forgot" ||
-    locationFromHook.pathname === "/edit" ||
-    locationFromHook.pathname === "/change") {
+  //  locationFromHook.pathname === "/login" || 
+  //  locationFromHook.pathname === "/signup" ||
+  //  locationFromHook.pathname === "/forgot" ||
+  //  locationFromHook.pathname === "/edit" ||
+  //  locationFromHook.pathname === "/change") {
 
-        return null
-    } 
+     //   return null
+    //} 
     
     
   

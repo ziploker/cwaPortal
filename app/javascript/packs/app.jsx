@@ -17,6 +17,13 @@ import LookupSection from './lookupSection'
 import Section2 from './section2'
 import Footer from './footer'
 
+import Login from "./pages/login"
+import Forgot from "./pages/forgot"
+import Signup from './pages/signup'
+import Edit from './pages/edit'
+import Change from './pages/change_pw'
+import Resend from './pages/resend'
+
 import styled, { ThemeProvider } from 'styled-components'
 import GlobalStyles from "./global"
 
@@ -55,15 +62,40 @@ function App(controllerProps){
     
 
     
+    const handleSuccessfulAuth = data => {
+        
+        setAppState({
+            ...appState,
+            loggedInStatus: "LOGGED_IN",
+            user: data.user
+        })
+    }
+
     
-    
-    
+    const handleLogOutClick = () => {
+        
+        //const mode = process.env.NODE_ENV =="development" ? "http://127.0.0.1:3000" : "https://www.floiridablaze.io"
+        
+        axios.delete("/logout", {withCredentials : true})
+            .then(response => {
+                setAppState({
+                    ...appState,
+                    loggedInStatus: "NOT_LOGGED_IN",
+                    user: {}
+                })
+
+            }).catch(error => {
+                console.log("logout errors", error)
+            })
+    }
     
     
     
     // reference for lookupSection to scroll to, when click on nav link
     const LookupScrollToRef = useRef();
     const LookupInputRef = useRef();
+
+    const section2ScrollToRef = useRef();
 
     // when click on nav link, scrolls to LookupScrollToRef
     const scrollToRef = (ref) => {
@@ -75,10 +107,21 @@ function App(controllerProps){
         LookupInputRef.current.focus();
 
     }
+
+    const scrollToRef2 = (ref) => {
+
+        console.log(ref)
+        
+        window.scrollTo(0, ref.current.offsetTop)
+
+        
+       
+    }
         
     
     
-    const executeScroll = () => scrollToRef(LookupScrollToRef)
+    const executeScrollForLookupSection = () => scrollToRef(LookupScrollToRef)
+    const executeScrollForSection2 = () => scrollToRef2(section2ScrollToRef)
     
     
     useEffect(() => {
@@ -103,7 +146,8 @@ function App(controllerProps){
                 
                     
                 <Header 
-                    executeScroll={executeScroll} 
+                    executeScrollForLookupSection={executeScrollForLookupSection} 
+                    executeScrollForSection2={executeScrollForSection2}
                     appState={appState} 
                     
                     openSideMenu={openSideMenu}
@@ -115,12 +159,17 @@ function App(controllerProps){
                 <Switch>
 
                     <Route exact path="/" render={ () => <Home stories={appState.stories} appState={appState} setAppState={setAppState} />}/>
-                    
+                    <Route path="/login" render={ props => <Login {...props} handleSuccessfulAuth={handleSuccessfulAuth} />} />
+                    <Route path="/signup" render={ props => <Signup {...props} handleSuccessfulAuth={handleSuccessfulAuth} />} />
+                    <Route path="/forgot" render={ props => <Forgot {...props}  />} /> 
+                    <Route path="/resend" render={ props => <Resend {...props}  />} />                   
+                    <Route exact path="/change_pw/:token" render={ props => <Change {...props}  />} />
+                    <Route path="/edit" render={ props => <Edit {...props} user={appState.user}/>} />
                     
                 </Switch>
 
                 <LookupSection appState={appState} ref={{LookupScrollToRef: LookupScrollToRef, LookupInputRef: LookupInputRef}}/>
-                <Section2 stories={appState.stories} appState={appState} setAppState={setAppState} />
+                <Section2 ref={{section2ScrollToRef: section2ScrollToRef}} stories={appState.stories} appState={appState} setAppState={setAppState} />
                <Footer/>
             </Router>
         

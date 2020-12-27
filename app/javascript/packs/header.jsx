@@ -133,30 +133,6 @@ const SmallProfilePic = styled.img`
 
 function Header(props) {
 
-    console.log("HEADER_________________PROPS", location.pathname)
-    //console.log("HEADER_PROPS solo", location.pathname)
-
-    const locationFromHook = useLocation();
-    
-    const ref = React.useRef();
-    //const navbar = React.createRef();
-    
-    function scrollToTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      }
-    
-    function mouseDownHandler(){
-        
-        props.setOpenSideMenu(false);
-        console.log("mouseDownEventTriggered & openSideMenu = " + props.openSideMenu);
-    }
-
-
-
-    let listener;
     useEffect(() => {
 
         console.log("Header UseEffect Start, openSideMenu state is currently " + props.openSideMenu);
@@ -217,8 +193,35 @@ function Header(props) {
       [ref, mouseDownHandler],
     );
 
-    console.log("locationFromHook.pathname", locationFromHook.pathname)
-    if (
+    console.log("HEADER_________________PROPS", location.pathname)
+    //console.log("HEADER_PROPS solo", location.pathname)
+
+    const locationFromHook = useLocation();
+    
+    const ref = React.useRef();
+    //const navbar = React.createRef();
+    
+    function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    
+    function mouseDownHandler(){
+        
+        props.setOpenSideMenu(false);
+        console.log("mouseDownEventTriggered & openSideMenu = " + props.openSideMenu);
+    }
+
+
+
+    let listener;
+    
+    
+
+    console.log("locationFromHook.pathname", locationFromHook.pathname);
+    {/*if (
     
     locationFromHook.pathname === "/login" || 
     locationFromHook.pathname === "/signup" ||
@@ -228,7 +231,7 @@ function Header(props) {
 
         return null
     }
-                    
+    */}                
       
     return (
         
@@ -246,10 +249,20 @@ function Header(props) {
                     <li key={1}><a onClick={scrollToTop}>Home</a></li>
                     <li key={2}>
                     
-                        <a onClick={props.executeScroll}>Take Action</a>
+                        <a onClick={props.executeScrollForLookupSection}>Take Action</a>
                     </li>
                     <li key={3}><a href="#">Link1</a></li>
                     <li key={4}><a href="#">Link2</a></li>
+                    
+                    {/* 
+                    <li key={5}>
+
+                        {props.appState.loggedInStatus == "LOGGED_IN" ? <SmallProfilePic src={props.appState.user.avatar_url}/> : <SmallProfilePicPlaceholder/>}
+
+                    </li>
+                    */}
+
+                    <li key={5}>{props.appState.loggedInStatus == "LOGGED_IN" ? [<Link key={"a"} to="/" onClick= {props.handleLogOutClick}> Logout | </Link>, <Link key={"b"} to="/edit">edit </Link>] :   [<Link key={"c"} to="/login"> Login |</Link>, <a key={"d"} onClick={props.executeScrollForSection2}> Signup</a>]  } </li>
                     
                     {/* 
                     <li key={5}>

@@ -2,22 +2,22 @@ import styled from 'styled-components';
 
 const Card = styled.div`
   box-sizing: border-box;
-  //max-width: 430px;
-  //margin-bottom: 20px;
+  max-width: 430px;
+  margin-bottom: 20px;
   //padding: 0 2rem;
   
   //margin-top: 100px;
 
-  //background-color: #fff;
-  border: 2px solid green;
+  background-color: #fff;
+  border: 1px solid transparent;
   
   box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-  //border-radius: 8px;
+  border-radius: 8px;
 `;
 
 const H2 = styled.h2`
 
-  //margin: 0 20px;
+  margin: 0 20px;
   line-height: 1.5;
   font-size: 24px;
        
@@ -28,7 +28,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
-  //padding: 0 40px 0px 40px;
+  padding: 0 40px 0px 40px;
   box-sizing: border-box;
 `;
 
@@ -36,7 +36,7 @@ const FormItem = styled.div`
 
   position: relative;
   margin: 0 0 20px 0;
-  //padding: 0;
+  padding: 0;
 
 
 
@@ -47,7 +47,7 @@ const Label = styled.label`
   height: 100%;
   line-height: 44px;
   
-  //color: #62748e;
+  color: #62748e;
   
   //font-weight: bold;
   
@@ -58,7 +58,7 @@ const Label = styled.label`
   left: 52px;
   
   transition: all 150ms ease-in;
-  color: black;
+  color: #9FA5C4;
   pointer-events: none;
 
   
@@ -86,8 +86,8 @@ const Input = styled.input`
 
   font-size: 14px;
   line-height: 1.42857;
-  color: black;
-  //background-color: #fff;
+  color: #3f3f44;
+  background-color: #fff;
   background-image: none;
   border: 1px solid #cbcbd2;
   border-radius: 4px;
@@ -147,14 +147,20 @@ const RedX = styled.img`
 const LoginWrapper = styled.div`
   position: relative;
   height: 100%;
-  
+  background-color: orange;
   display: grid;
   
   align-items: center;
   justify-content: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(200px, 430px);
+  
+  padding-top: 60px;
+  padding-bottom: 20px;
   text-align: center;
- 
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 
 `;
 
