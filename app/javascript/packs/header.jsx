@@ -214,6 +214,13 @@ function Header(props) {
         console.log("mouseDownEventTriggered & openSideMenu = " + props.openSideMenu);
     }
 
+    function doSomething(){
+
+        scrollToTop();
+        props.setLoginClicked(true)
+        props.setOpenSideMenu(false)
+    }
+
 
 
     let listener;
@@ -262,7 +269,7 @@ function Header(props) {
                     </li>
                     */}
 
-                    <li key={5}>{props.appState.loggedInStatus == "LOGGED_IN" ? [<Link key={"a"} to="/" onClick= {props.handleLogOutClick}> Logout | </Link>, <Link key={"b"} to="/edit">edit </Link>] :   [<Link key={"c"} to="/login"> Login |</Link>, <a key={"d"} onClick={props.executeScrollForSection2}> Signup</a>]  } </li>
+                    <li key={5}>{props.appState.loggedInStatus == "LOGGED_IN" ? [<a key={"a"} onClick= {props.handleLogOutClick}> Logout | </a>, <Link key={"b"} to="/edit">edit </Link>] :   [<a key={"c"} onClick={doSomething}> Login |</a>, <a key={"d"} onClick={props.executeScrollForSection2}> Signup</a>]  } </li>
                     
                     {/* 
                     <li key={5}>
@@ -271,6 +278,8 @@ function Header(props) {
 
                     </li>
                     */}
+
+                    <li key={6}>{props.appState.loggedInStatus} </li>
                 </ul>
 
             </DesktopNav>
@@ -279,7 +288,14 @@ function Header(props) {
         
             <div ref={ref}>
                 <Burger openSideMenu={props.openSideMenu} setOpenSideMenu={props.setOpenSideMenu}/>
-                <SideMenu openSideMenu={props.openSideMenu} executeScroll={props.executeScroll} appState={props.appState} />
+                <SideMenu 
+                    doSomething={doSomething} 
+                    openSideMenu={props.openSideMenu} 
+                    setOpenSideMenu={props.setOpenSideMenu}
+                    executeScroll={props.executeScroll} 
+                    appState={props.appState} 
+                    executeScrollForLookupSection={props.executeScrollForLookupSection} 
+                    executeScrollForSection2={props.executeScrollForSection2}/>
             </div>
         
         

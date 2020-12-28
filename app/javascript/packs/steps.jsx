@@ -30,11 +30,11 @@ const StepsContainer = styled.div`
         display: grid;
         
         
-        height: 75px;
+        //height: 75px;
         min-width: 300px;
         max-width: 400px;
         width: 100vw;
-        //padding: 20px;
+        padding: 0px 20px;
         margin: 0 auto;
         align-items:center;
         grid-row-gap: 4px;
@@ -55,7 +55,7 @@ const StepsContainer = styled.div`
         text-align: center;
         grid-area: step1;
         //color: #5fcc61;
-        font-size: .56em;
+        font-size: .5em;
         
         
         
@@ -66,7 +66,7 @@ const StepsContainer = styled.div`
         text-align: center;
         grid-area: step2;
         //color: #5fcc61;
-        font-size: .56em;
+        font-size: .5em;
 
 
 
@@ -77,7 +77,7 @@ const StepsContainer = styled.div`
         text-align: center;
         grid-area: step3;
         //color: #5fcc61;
-        font-size: .56em;
+        font-size: .5em;
         
         
         

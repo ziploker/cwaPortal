@@ -9,7 +9,7 @@ import crew from '../../assets/images/crew'
 import { Link } from 'react-router-dom';
 
 import redX from '../../assets/images/redX'
-import userIcon from '../../assets/images/signup'
+import userIcon from '../../assets/images/signup2'
 import greenCheck from '../../assets/images/greenCheck'
 import dummy_avatar from '../../assets/images/dummy_avatar'
 import { Card, Logo, Form, Input, Button, ErrorMsg, RedX, LoginWrapper, 
@@ -30,127 +30,25 @@ const HomeWrapper = styled.div`
 
 `;
 
-////////////////////// Handlev Submit V2 //////////////////////////
-const handleAdd = e => {
-    
-  e.preventDefault();
-
-  setState({
-    ...state,
-    waitMessage: "...one moment",
-    showStatusSpinner: true,
-    isBtnDisabled: true
-  });
-    
-  if (validForm()) {
 
 
-    
-    
-    formData.append('user[first]', state.first);
-    formData.append('user[last]', state.last);
-    formData.append('user[email]', state.email);
-    formData.append('user[password]', state.password);
-    formData.append('user[password_confirmation]', state.password_confirmation);
-    formData.append('user[nick]', state.nick);
-    
-    
-
-    console.log("formdata from handle add");
-    console.log(formData);
-
-    
-    //get token for form submission
-    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");  
-      
-    $.ajax({
-      
-      url: '/registrations',
-      headers: {
-        
-        'X-CSRF-Token': csrf
-      },
-      method: 'POST',
-      data: 
-        formData,
-        contentType: false,
-        processData: false
-          
-        
-      ,
-      success: function(response) {
-        //props.handleAdd(data);
 
 
-      if (response.status === "green"){
-
-        setState({
-          ...state,
-          //focussed: (props.focussed) || false,
-          first: "",
-          firstFieldActive: false,
-          last: "",
-          lastFieldActive: false,
-          email: "",
-          emailFieldActive: false,
-          password: "",
-          passwordFieldActive: false,
-          password_confirmation: "",
-          password_confirmationFieldActive: false,
-          nick: "",
-          status: response.status,
-          avatarFieldActive: false,
-          avatar: [],
-          errors: response.error
-          
-        });
-          
-          
-      
-          
-          props.handleSuccessfulAuth(response)
-          //props.history.push("/")
-        
-        }else{
-          
-          //update error state
-          setState({
-            ...state,
-            status: response.status,
-            errors: response.error
-          });
-        }
-        
-  
-      },
-      error: function(xhr, status, error) {
-        //alert('Message did not reach server: ', error);
-      }
-    })
-  } else {
-    //alert('Please fill all fields.');
-  }
-}
-
-
-const validForm = () => {
-  if (state.first ) {
-    return true;
-  } else {
-    return true;
-  }
-}
 
 
   
 ///////////////////////////////////  HANDLE_CHANGE /////////////////////////////
 function handleChange(event){
 
-  const value = event.target.value;
-
+  //const value = event.target.value;
+  const target = e.target;
+  const value = target.type === 'checkbox' ? target.checked : target.value;
+  const name = target.name;
+  //const value = target.type === 'checkbox' ? !event.target.checked : event.target.value;
+  
   setState({
     ...state,
-    [event.target.name]: value
+    [name]: value
   });
 
 }
@@ -215,12 +113,13 @@ const LabelForFile = styled.label`
   
   `;
 
-const Span = styled.span`
+const Span = styled.h4`
 
-  height: 100%;
+  font-size: .5em;
+  padding: 5px 12px;
   margin-right: 5px;
-  font-size: .75em;
-  transition: opacity 2s ease-in;
+  
+  //transition: opacity 2s ease-in;
   
             
 
@@ -228,7 +127,8 @@ const Span = styled.span`
 
 const StatusSpinner = styled.div`
   
-  
+  max-height: ${ props => props.showStatusSpinner.toString() == "true" ? "100%" : "0px"};
+  opacity: ${ props => props.showStatusSpinner.toString() == "true" ? "1" : "0"};
   transition: opacity .4s;
   transition-timing-function: ease-out;
 
@@ -246,20 +146,21 @@ function Section2(props, ref) {
   const {section2ScrollToRef} = ref
 
   const [state, setState] = React.useState({
-    first: "test",
-    firstFieldActive: false,
-    last: "",
-    lastFieldActive: false,
+    full_name: "",
+    full_nameFieldActive: false,
+    
     email: "",
     emailFieldActive: false,
+    
     password: "",
     passwordFieldActive: false,
-    password_confirmation: "",
-    password_confirmationFieldActive: false,
-    nick: "",
-    nickFieldActive: false,
+  
+    opt_in: false,
+    
     status: "",
-    avatar: [],
+
+    showErrorBackground: false,
+    
     errors: {},
     color: "#45B5644",
     isBtnDisabled: false,
@@ -267,20 +168,144 @@ function Section2(props, ref) {
     waitMessage: ""
   })
 
+  const validForm = () => {
+    if (state.full_name ) {
+      return true;
+    } else {
+      return true;
+    }
+  }
 
-  const handleChange = (event) => {
+  const handleChange = (e) => {
 
-    const value = event.target.value;
+    
 
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+
+    console.log("TARGET_CHECKED " + target.checked.toString())
+    console.log("TARGET_VALUE " + target.value.toString())
+    //const value = target.type === 'checkbox' ? !event.target.checked : event.target.value;
     setState({
       ...state,
-      [event.target.name]: value
+      [name]: value
     });
+  
 
-  }
+}
+
+
+    //const value = event.target.value;
+
+    
 
   
 
+  
+  ////////////////////// Handlev Submit V2 //////////////////////////
+const handleAdd = e => {
+    
+  e.preventDefault();
+
+  setState({
+    ...state,
+    status: "",
+    errors: {},
+    showErrorBackground: true,
+    waitMessage: "...one moment",
+    showStatusSpinner: true,
+    isBtnDisabled: true
+  });
+    
+  if (validForm()) {
+
+
+    
+    
+    formData.append('user[full_name]', state.full_name);
+    
+    formData.append('user[email]', state.email);
+    formData.append('user[password]', state.password);
+    formData.append('user[opt_in]', state.opt_in);
+    
+    
+
+    console.log("formdata from handle add");
+    console.log(formData);
+
+    
+    //get token for form submission
+    const csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");  
+      
+    $.ajax({
+      
+      url: '/registrations',
+      headers: {
+        
+        'X-CSRF-Token': csrf
+      },
+      method: 'POST',
+      data: 
+        formData,
+        contentType: false,
+        processData: false
+          
+        
+      ,
+      success: function(response) {
+        //props.handleAdd(data);
+
+
+      if (response.status === "green"){
+
+        setState({
+          ...state,
+          //focussed: (props.focussed) || false,
+          full_name: "",
+          full_nameFieldActive: false,
+         
+          email: "",
+          emailFieldActive: false,
+          password: "",
+          passwordFieldActive: false,
+          
+          opt_in: false,
+          showErrorBackground: true,
+          status: response.status,
+          
+          errors: response.error
+          
+        });
+          
+          
+      
+          
+          props.handleSuccessfulAuth(response)
+          //props.history.push("/")
+        
+        }else{
+          
+          //update error state
+          setState({
+            ...state,
+            showErrorBackground: true,
+            status: response.status,
+            errors: response.error
+          });
+        }
+        
+  
+      },
+      error: function(xhr, status, error) {
+        //alert('Message did not reach server: ', error);
+      }
+    })
+  } else {
+    //alert('Please fill all fields.');
+  }
+}
   
 
       
@@ -339,61 +364,7 @@ function Section2(props, ref) {
   }
   
   
-  ///////////////////////////////////  HANDLE_SUBMIT ///////////////////////////
-  function handleSubmit(event){
-    
-    ////send info into backend heyyohhhh/////
-    event.preventDefault();
-    //const mode = process.env.NODE_ENV =="development" ? "http://127.0.0.1:3000" : "https://www.floiridablaze.io"
-    axios.post("/registrations", {
-      
-      user: { 
-        first: state.first,
-        last: state.last,
-        email: state.email,
-        password: state.password,
-        password_confirmation: state.password_confirmation,
-        avatar: state.avatar,
-        nick: state.nick
-
-      }
-    },
-    {withCredentials: true})
-    .then(response => {
-      
-      console.log("Sign up submit Response", response)
-      
-      if (response.data.status === "green"){
-        
-        setState({
-          ...state,
-          status: response.data.status,
-          errors: response.data.error
-        });
-        
-        props.handleSuccessfulAuth(response.data)
-        props.history.push("/")
-      
-      }else{
-        
-        //update error state
-        setState({
-          ...state,
-          status: response.data.status,
-          errors: response.data.error
-        });
-      }
-    }).catch(error => {
-      
-      console.log("Sign_up Errors", error)
-      setState({
-        ...state,
-        status: response.data.status,
-        errors: response.data.error
-      });
-    
-    })
-  }
+  
 
 
   return (
@@ -406,7 +377,10 @@ function Section2(props, ref) {
         <div>
 
           <img style={{width: "50px"}} src={userIcon}/>
-          <h1>Sign Up!</h1>
+          <h1 style={{color: "#EDEAEA", marginBottom: "30px"}}>Sign Up!</h1>
+          <sub style={{color: "#EDEAEA"}}>- Create a free account.</sub><br/>
+          <sub style={{color: "#EDEAEA"}}>- Stay Informed with CWA updates.</sub><br/>
+          <sub style={{color: "#EDEAEA"}}>- Unlimited access to our "take action" tool.</sub>
 
 
         </div>
@@ -417,7 +391,7 @@ function Section2(props, ref) {
           <Form onSubmit = {handleAdd}>
 
             <FormItem >
-                <Label className={state.firstFieldActive ? "field-active" : ""}>FULL NAME</Label>
+                <Label className={state.full_nameFieldActive ? "field-active" : ""}> full name </Label>
                 <Input 
                 name="full_name" 
                 type="text" 
@@ -448,7 +422,7 @@ function Section2(props, ref) {
                 <Input 
                 name="password" 
                 type="password" 
-                
+                autocomplete="off"
                 value={state.password} 
                 onChange={handleChange} 
                 onFocus={activateField}
@@ -457,13 +431,34 @@ function Section2(props, ref) {
             </FormItem>
 
             
+
+            
+ 
+
+            
             <Button type="submit" disabled={state.isBtnDisabled}>Sign Up</Button>
+            
+            <div  style={{display: "flex", justifyContent: "center"}}>
+                
+                
+                <Input style={{width: "0px", height: "auto"}}
+                name="opt_in" 
+                type="checkbox" 
+                id="opt_in"
+                checked={state.opt_in}
+                 
+                onChange={handleChange} 
+                
+                />
+                
+                <h3 style={{marginLeft: "5px", fontSize: ".6em", color: "white"}} htmlFor="opt_in" >Opt In to receive e-mails from CWAPortal </h3>
+            </div>
           
           </Form>
 
           
           
-          <ErrorWrapper>   
+          <ErrorWrapper showErrorBackground={state.showErrorBackground}>   
               <Span waitMessage={state.waitMessage}> {state.waitMessage}</Span>     
               <RedX status={state.status} src={state.status === "pink" ? redX : greenCheck}/>
               {errorMessages}

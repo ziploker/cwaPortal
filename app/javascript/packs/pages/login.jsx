@@ -5,11 +5,56 @@ import logoImg from "../../../assets/images/logoPlaceholder.jpg";
 import redX from '../../../assets/images/redX.jpg'
 import tinyMan from '../../../assets/images/tinyMan.png'
 import lock from '../../../assets/images/lock.png'
-
+import styled from 'styled-components'
+import userIcon from '../../../assets/images/signup2'
 import { Card, Logo, Form, Input, Button, ErrorMsg, RedX, LoginWrapper, 
   InputIcon, LogoWrapper, H2, FormItem, Label, ErrorWrapper} from './AuthForm';
 
+const LoginWrapperNew = styled.div`
 
+  
+
+  position: absolute;
+  top: ${props => props.loginClicked ? "45px" : "-500px"};
+  right: 0;
+  background-color: white;
+  padding: 20px;
+  transition: all 1s ease 0s;
+
+
+`;
+
+const CardNew = styled.div`
+
+  
+`;
+
+const CloseWindow = styled.a`
+
+  position: absolute;
+  line-height: 1.3em;
+  top: 0px;
+  right: 0px;
+  border: 1px solid red;
+  border-radius: 45px;
+  font-size: .5em;
+  cursor: pointer;
+  padding: 2px;
+
+
+`;
+
+const LogoWrapperNew = styled.div`
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  
+
+
+`;
 ///////////////////////////////////  LOG_IN_PAGE //////////////////////////////
 function Login(props) {
   
@@ -44,6 +89,12 @@ function Login(props) {
   }
 
 
+  function closeLoginWindow(){
+
+    props.setLoginClicked(false);
+
+
+  }
   
 
   
@@ -72,10 +123,13 @@ function Login(props) {
           status: response.data.status,
           errors: response.data.error,
         });
+
+        
+        props.setLoginClicked(false)
         
         props.handleSuccessfulAuth(response.data)
         
-        props.history.push("/")
+        //props.history.push("/")
       
       }else{
         
@@ -149,16 +203,18 @@ function Login(props) {
 
     
     
-    <LoginWrapper>
+    <LoginWrapperNew loginClicked={props.loginClicked}>
       
-      <Card>
-        
-        <LogoWrapper>
+      <CardNew>
+      
+        <LogoWrapperNew >
+
+          <CloseWindow onClick={closeLoginWindow}>&#10060;</CloseWindow>
           <a href="/">
-            <Logo src={logoImg} />
+            <Logo src={userIcon} />
           </a>   
-          <H2>Log in to your account</H2>
-        </LogoWrapper>
+          <H2>Log in </H2>
+        </LogoWrapperNew>
         
         <Form onSubmit = {handleSubmit}>
           
@@ -204,13 +260,13 @@ function Login(props) {
         </ErrorWrapper>
 
         
-      </Card>
-      
+      </CardNew>
+      {/* 
       <a style={{fontSize: ".5em", textDecoration: "underline"}} href="/signup">Dont have an account? </a>
       <a style={{fontSize: ".5em", textDecoration: "underline"}} href="/forgot">Forgot password?? </a>
       <a style={{fontSize: ".5em", textDecoration: "underline"}} href="/resend">Resend Email </a>
-      
-    </LoginWrapper>
+      */}
+    </LoginWrapperNew>
   );
 }
 

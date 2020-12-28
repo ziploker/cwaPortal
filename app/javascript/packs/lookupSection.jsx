@@ -274,6 +274,7 @@ const Letter = styled.div`
     "to  email1 email1"
     " .  email2 email2"
     "message message message"
+    
     "from from button";
 
     height: 100%;
@@ -283,12 +284,15 @@ const Letter = styled.div`
 
 `;
 
+const Flash = styled.h4`
+
+  
+  font-size: .5em;
+
+`;
 const SendButton = styled.a`
 
-    justify-self: center;
-    align-self: flex-end;
-    grid-area: button;
-
+   
 
 `;
 
@@ -332,10 +336,13 @@ function Look_Up_Section (props, ref) {
 
 
   const {LookupScrollToRef, LookupInputRef} = ref;
-
+  
+  
+  
+  const [flashMsg, setFlashMsg] = React.useState("")
   const [showCards, setShowCards] = React.useState( false )
   const [showSteps, setShowSteps] = React.useState( false )
-  const [sendButtonClass, setSendButtonClass] = React.useState("button success")
+  const [sendButtonClass, setSendButtonClass] = React.useState("button error")
   const [resultFromFlorida, setResultFromFlorida] = React.useState(true)
   
   //const [results, setResults] = React.useState( {"one":{"resultFromFlorida":"true","name":"Juan Alfonso Fernandez-Barquin","firstName":"","lastName":"","image":"https://www.myfloridahouse.gov//FileStores/Web/Imaging/Member/4709.jpg","id":"ocd-person/a8c88fee-1915-4907-ae37-5755c4bff446","email":"JuanF.Barquin@myfloridahouse.gov","chamber":"House","party":"Republican","parent":"Florida Legislature","district":"119","fullDistrict":"Florida State House district 119","fullDistrictTrunk":"Florida State House"},"two":{"name":"Annette Taddeo","firstName":"Annette","lastName":"Taddeo","image":"http://www.flsenate.gov/PublishedContent/Senators/2018-2020/Photos/s40_5331.jpg","id":"ocd-person/ea190b03-d1ca-4d75-89c7-dca745386db7","email":"taddeo.annette.web@flsenate.gov","chamber":"Senate","party":"Democrat","parent":"Florida Legislature","district":"40","fullDistrict":"Florida State Senate  ","fullDistrictTrunk":"Florida State Senate"}});
@@ -382,18 +389,37 @@ function Look_Up_Section (props, ref) {
     //e.target.classList.remove('animate');
     
     //e.target.classList.add('animate');
-    setSendButtonClass("button success animate")
-    //e.target.classList.add('animate');
-    setBullet2("COMPLETED")
-    setBullet2msg("Message Sent")
-    setShowStatusCheck2(true)
-    //setTimeout(function(){
-      //e.target.classList.remove('animate');
-    //},6000);
-    setTimeout(function(){
-      setShowSteps(false)
-      //e.target.classList.remove('animate')
-    },3000);
+    if (props.appState.loggedInStatus == "NOT_LOGGED_IN"){
+      setSendButtonClass("button error animate")
+
+      setTimeout(function(){
+        setFlashMsg("Not Logged In")
+        //e.target.classList.remove('animate')
+      },4000);
+      
+    
+    }else{
+
+      console.log("rrrrrrrrrrrrrrrrrrrrrr")
+      setSendButtonClass("button success animate")
+
+      
+    
+      //e.target.classList.add('animate');
+      setBullet2("COMPLETED")
+      setBullet2msg("Message Sent")
+      setShowStatusCheck2(true)
+      //setTimeout(function(){
+        //e.target.classList.remove('animate');
+      //},6000);
+      setTimeout(function(){
+        setShowSteps(false)
+        //e.target.classList.remove('animate')
+      },3000);
+    
+    }
+    
+    
   
   
     ////var classname = document.getElementsByClassName("button");
@@ -604,15 +630,17 @@ function Look_Up_Section (props, ref) {
                   <sub>Your Email Here</sub> <br/>
 
                 </From>
-                
-                <SendButton>
-                  
-                  
-                  <div className="wrapper">
-                    <div ref={sendButtonRef} className="block" onClick={animateButton}><button className={props.appState.loggedInStatus == "LOGGED_IN" ? sendButtonClass : sendButtonClass}>Send</button></div>
+                <div style={{gridArea: "button"}}>
+                  <Flash>{flashMsg}</Flash>
+                  <SendButton>
                     
-                  </div>
-                </SendButton>
+                    
+                    <div className="wrapper">
+                      <div ref={sendButtonRef} className="block" onClick={animateButton}><button className={sendButtonClass}>Send</button></div>
+                      
+                    </div>
+                  </SendButton>
+                </div>
               </Letter>
             </DemoLetter>
           </Results>

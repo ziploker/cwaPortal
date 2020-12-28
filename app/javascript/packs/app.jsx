@@ -23,6 +23,8 @@ import Signup from './pages/signup'
 import Edit from './pages/edit'
 import Change from './pages/change_pw'
 import Resend from './pages/resend'
+import axios from 'axios'
+
 
 import styled, { ThemeProvider } from 'styled-components'
 import GlobalStyles from "./global"
@@ -45,6 +47,7 @@ function App(controllerProps){
         
     })
     const [openSideMenu, setOpenSideMenu] = useState(false);
+    const [loginClicked, setLoginClicked] = useState(false)
 
     
    
@@ -96,7 +99,7 @@ function App(controllerProps){
     const LookupInputRef = useRef();
 
     const section2ScrollToRef = useRef();
-
+    
     // when click on nav link, scrolls to LookupScrollToRef
     const scrollToRef = (ref) => {
         
@@ -120,9 +123,17 @@ function App(controllerProps){
         
     
     
-    const executeScrollForLookupSection = () => scrollToRef(LookupScrollToRef)
-    const executeScrollForSection2 = () => scrollToRef2(section2ScrollToRef)
+    const executeScrollForLookupSection = () => {
+        
+        scrollToRef(LookupScrollToRef)
+        setOpenSideMenu(false)
+    }
     
+    const executeScrollForSection2 = () => {
+        
+        scrollToRef2(section2ScrollToRef)
+        setOpenSideMenu(false)
+    }
     
     useEffect(() => {
 
@@ -149,16 +160,18 @@ function App(controllerProps){
                     executeScrollForLookupSection={executeScrollForLookupSection} 
                     executeScrollForSection2={executeScrollForSection2}
                     appState={appState} 
-                    
+                    handleLogOutClick={handleLogOutClick}
                     openSideMenu={openSideMenu}
                     setOpenSideMenu={setOpenSideMenu}
+                    loginClicked={loginClicked}
+                    setLoginClicked={setLoginClicked}
                 />
                 
                 
                 
                 <Switch>
 
-                    <Route exact path="/" render={ () => <Home stories={appState.stories} appState={appState} setAppState={setAppState} />}/>
+                    <Route exact path="/" render={ () => <Home handleSuccessfulAuth={handleSuccessfulAuth} loginClicked={loginClicked} setLoginClicked={setLoginClicked} stories={appState.stories} appState={appState} setAppState={setAppState} />}/>
                     <Route path="/login" render={ props => <Login {...props} handleSuccessfulAuth={handleSuccessfulAuth} />} />
                     <Route path="/signup" render={ props => <Signup {...props} handleSuccessfulAuth={handleSuccessfulAuth} />} />
                     <Route path="/forgot" render={ props => <Forgot {...props}  />} /> 
@@ -169,7 +182,7 @@ function App(controllerProps){
                 </Switch>
 
                 <LookupSection appState={appState} ref={{LookupScrollToRef: LookupScrollToRef, LookupInputRef: LookupInputRef}}/>
-                <Section2 ref={{section2ScrollToRef: section2ScrollToRef}} stories={appState.stories} appState={appState} setAppState={setAppState} />
+                <Section2 ref={{section2ScrollToRef: section2ScrollToRef}} stories={appState.stories} appState={appState} setAppState={setAppState} handleSuccessfulAuth={handleSuccessfulAuth} />
                <Footer/>
             </Router>
         

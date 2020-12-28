@@ -2,17 +2,27 @@ import styled from 'styled-components';
 
 const Card = styled.div`
   box-sizing: border-box;
-  //max-width: 430px;
+  min-width: 430px;
   //margin-bottom: 20px;
-  //padding: 0 2rem;
-  
+  padding: 20px;
+  align-self: center;
   //margin-top: 100px;
-
-  //background-color: #fff;
-  border: 2px solid green;
+  justify-self: start;
+  background-color: rgba(33,34,36,.3);
+  //border: 2px solid green;
   
   box-shadow: 0 1px 1px rgba(0,0,0,0.05);
   //border-radius: 8px;
+
+  @media screen and (max-width: 900px){
+
+    
+    justify-self: center;
+    min-width: inherit;
+    width: 100%;
+
+
+  }
 `;
 
 const H2 = styled.h2`
@@ -58,7 +68,7 @@ const Label = styled.label`
   left: 52px;
   
   transition: all 150ms ease-in;
-  color: black;
+  color: #635d5d;
   pointer-events: none;
 
   
@@ -123,9 +133,12 @@ const Logo = styled.img`
 const ErrorWrapper = styled.div`
 
   display: flex;
+  height:45px;
   justify-content: center;
   align-items: center;
-  padding: 15px 30px;
+  padding: 10px 10px;
+  margin-top: 10px;
+  background-color: ${props => props.showErrorBackground ? "#eaeded" : "transparent"};
   line-height: .7em;
 
 
@@ -151,9 +164,20 @@ const LoginWrapper = styled.div`
   display: grid;
   
   align-items: center;
+  justify-self: start;
   justify-content: center;
   grid-template-columns: 1fr 1fr;
   text-align: center;
+
+  @media screen and (max-width: 900px){
+
+    grid-template-columns: minmax(300px, 480px);
+    grid-row-gap: 40px;
+    
+
+
+
+  }
  
 
 `;

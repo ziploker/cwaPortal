@@ -15,17 +15,25 @@ const UL = styled.ul`
 
 `;
 
-const Menu = (props) => {
+
+function Menu(props) {
+
+ 
+  
   return (
+    
+    
     <StyledSideMenu openSideMenu={props.openSideMenu}>
 
       <UL>
                 
 
         <li key={1}><a href="/">Home</a></li>
-        <li key={2}><a onClick={props.executeScroll}>Take Action</a></li>
+        <li key={2}><a onClick={props.executeScrollForSection2}>Take Action</a></li>
         <li key={3}><a href="#">Link1</a></li>
         <li key={4}><a href="#">Link2</a></li>
+        <li key={5}>{props.appState.loggedInStatus == "LOGGED_IN" ? [<a key={"a"} onClick= {props.handleLogOutClick}> Logout | </a>, <Link key={"b"} to="/edit">edit </Link>] :   [<a key={"c"} onClick={props.doSomething}> Login |</a>, <a key={"d"} onClick={props.executeScrollForSection2}> Signup</a>]  } </li>
+                    
         
         {/* 
         <li key={5}>

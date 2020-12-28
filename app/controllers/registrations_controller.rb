@@ -1,4 +1,3 @@
-class RegistrationsController < ApplicationController
 
     class RegistrationsController < ApplicationController
 
@@ -9,6 +8,7 @@ class RegistrationsController < ApplicationController
         
     
         require 'mailgun-ruby'
+        include CurrentUserConcern
     
         #############################################################
     
@@ -23,7 +23,7 @@ class RegistrationsController < ApplicationController
     
         #SENDGRID_API
         #sets @current_user if session[:id] exists
-        include CurrentUserConcern
+        
     
        
         ####################  SIGN_UP  ###############################
@@ -35,6 +35,7 @@ class RegistrationsController < ApplicationController
             ###sendgrid_api = Rails.application.credentials.dig(:SENDGRID_API)
             mailgun_api = Rails.application.credentials.dig(:MAILGUN_API)
             
+            
             token = SecureRandom.urlsafe_base64.to_s
             # First, instantiate the Mailgun Client with your API key
             mg_client = Mailgun::Client.new mailgun_api
@@ -45,16 +46,7 @@ class RegistrationsController < ApplicationController
             @user = User.new(user_params)
             @user.confirm_token = token
             
-            if params[:user][:avatar]
-                puts "innnnnnnn"
-                # The data is a file upload coming from <input type="file" />
-                @user.avatar.attach(params[:user][:avatar])
-                # Generate a url for easy display on the front end 
-                ##@photo = url_for(@user.avatar)
-    
-                ##puts "url is: " + photo
             
-            end
     
             puts "errors: " + @user.errors.messages.to_s
     
@@ -99,9 +91,9 @@ class RegistrationsController < ApplicationController
    
                 # Send your message through the client
                 
-                mg_client.send_message 'cwaportal.org', message_params
+                mg_client.send_message 'sandbox49b250d1bfbb431994ea9621e096bcc5.mailgun.org', message_params
     
-                result = mg_client.get("cwaportal.org/events", {:event => 'delivered'})
+                result = mg_client.get("sandbox49b250d1bfbb431994ea9621e096bcc5.mailgun.org/events", {:event => 'delivered'})
                 
                 session["user_id"] = @user.id
                 
@@ -547,7 +539,7 @@ class RegistrationsController < ApplicationController
     
            
             
-            params.require(:user).permit(:first, :last, :email, :password_digest, :password, :password_confirmation, :email_confirmed, :confirm_token, :avatar_url, :avatar, :nick)
+            params.require(:user).permit(:full_name, :email, :password_digest, :password, :email_confirmed, :confirm_token, :opt_in)
         end
     
     end
@@ -558,4 +550,3 @@ class RegistrationsController < ApplicationController
 
 
 
-end

@@ -244,7 +244,7 @@ function Lookup(props, ref) {
 
       if (props.bullet2 == "COMPLETED"){
 
-        props.setSendButtonClass("button success")
+        props.setSendButtonClass("button error")
         props.setShowStatusCheck2(false)
         props.setBullet2msg("Send Message")
 
