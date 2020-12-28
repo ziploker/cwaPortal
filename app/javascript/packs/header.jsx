@@ -277,9 +277,11 @@ function Header(props) {
                         {props.appState.loggedInStatus == "LOGGED_IN" ? <SmallProfilePic src={props.appState.user.avatar_url}/> : <SmallProfilePicPlaceholder/>}
 
                     </li>
-                    */}
+                    
 
                     <li key={6}>{props.appState.loggedInStatus} </li>
+
+                    */}
                 </ul>
 
             </DesktopNav>
