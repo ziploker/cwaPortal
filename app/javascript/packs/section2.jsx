@@ -441,7 +441,7 @@ const handleAdd = e => {
             <div  style={{display: "flex", justifyContent: "center"}}>
                 
                 
-                <Input style={{width: "0px", height: "auto"}}
+                <input
                 name="opt_in" 
                 type="checkbox" 
                 id="opt_in"
