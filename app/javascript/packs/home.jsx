@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Parallax, Background } from 'react-parallax';
-import crowd from '../../assets/images/crew2dark'
+import slide1 from '../../assets/images/crew2dark'
+import slide2 from '../../assets/images/covid'
+import slide3 from '../../assets/images/building'
 import leftArrow from '../../assets/images/leftArrow'
 import rightArrow from '../../assets/images/rightArrow'
 import Login from './pages/login'
+import useFitText from "use-fit-text";
+import {gsap} from 'gsap'
 
+let targets = null
+let count = 0;
+let waitCuzLeftOrRightWasClicked = false;
 
 const HomeWrapper = styled.div`
 
@@ -19,9 +26,13 @@ const TopContent = styled.div`
     margin: 0 auto;
     text-align: center;
     display: grid;
-    width: 80vw;
-    height: 100vh;
-    min-height: 500px;
+    //width: 100vw;
+    //height: 100vh;
+    display: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-height: 500px;
     justify-content: center;
     justify-items: center;
     align-items: center;
@@ -35,9 +46,13 @@ const TopContent = styled.div`
         "headline headline headline"
         "call2action call2action call2action"
         "navigationLeft . navigationRight"
-        ". . .";
+        ". . ."
+    ;
 
 
+
+    position: relative;
+    overflow: hidden;
 
 `;
 
@@ -53,7 +68,7 @@ const Button = styled.button`
   margin-bottom: 1rem;
   font-size: 0.8rem;
 
-
+  align-self: bottom;
   cursor: pointer;
   grid-area: call2action;
   text-decoration: none;
@@ -80,11 +95,206 @@ const Container = () => (
     </Parallax>
 );
 
+const BoxContainer = styled.div`
+
+    width: 100vw;
+    height: 100vh;
+    
+    position: relative;
+    
+    overflow: hidden;
+    
+
+
+`;
+
+const Box = styled.div`
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+
+
+    //background-image: url(${crowd});
+    //background-size: contain;
+    //background-position: center;
+    //background-repeat: no-repeat;
+    margin: 0 auto;
+    text-align: center;
+    display: grid;
+    //width: 100vw;
+    //height: 100vh;
+    display: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 500px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-row-gap: 40px;
+    grid-template-columns: 10% minmax(200px, 1fr) 10%;
+    grid-template-rows: 1fr minmax(100px, auto) minmax(20px, auto)  minmax(0px, 1fr);
+
+    grid-template-areas:
+
+        ". .  ."
+        "headline headline headline"
+        "call2action call2action call2action"
+       
+        ". . ."
+    ;
+
+
+
+    
+    overflow: hidden;
+
+
+
+
+`;
+
+
+const Box2 = styled(Box)`
+
+    //background-image: url(${crowd2});
+    
+
+`;
+
+
 
 function Home(props){
 
-    console.log("HOME_PROPS", props)
+    const [screenIsAtTop, setScreenIsAtTop] = React.useState(true);
+    const { fontSize, textRef } = useFitText();
+
     
+    
+
+    console.log("<---- INTRO HOME  --------------------------------->")
+    console.log("window.pageYOffset = " + window.pageYOffset)
+
+    
+    
+    
+    
+    
+    useEffect( () => {
+
+        window.addEventListener('scroll', handleScroll);
+
+        console.log("<---- IN USE EFFECT HOOK --------------------------------->")
+        console.log("window.pageYOffset = " + window.pageYOffset)
+        
+        targets = document.querySelectorAll(".box");
+        console.log("TARGETS IS" + targets.toString());
+        
+        gsap.set(targets, { xPercent: -100 });
+        gsap.set(targets[0], { xPercent: 0 });
+        
+        function slideIt() {
+
+            console.log("<---- IN slideIT --------------------------------->")
+            console.log("window.pageYOffset = " + window.pageYOffset)
+            console.log("SCREENisATTOP = " + screenIsAtTop.toString())
+            
+            if (window.pageYOffset < 206 && !waitCuzLeftOrRightWasClicked){
+
+                gsap.to(targets[count], { xPercent: 100 });
+                count = count < targets.length - 1 ? ++count : 0;
+                gsap.fromTo(targets[count], { xPercent: -100 }, { xPercent: 0 });
+                gsap.to({}, { duration: 2.5, onComplete: slideIt });
+
+            }else{
+                console.log("EEELLLSSSEE")
+                gsap.to({}, { duration: 2.5, onComplete: slideIt });
+            }
+        }
+        
+        gsap.delayedCall(2, () => slideIt());
+        
+
+        return () => window.removeEventListener("scroll", handleScroll);
+
+
+
+    },[],); 
+
+
+
+    function handleScroll(){
+        
+        console.log("<---- IN Handle scroll --------------------------------->")
+        console.log("window.pageYOffset = " + window.pageYOffset)
+        
+        if (window.pageYOffset >= 205){
+            console.log("itwasbigger")
+            setScreenIsAtTop(false)
+            
+        }else{
+            setScreenIsAtTop(true)
+            console.log("itwasSmaller")
+        }
+    
+    }
+
+    function leftClicked(){
+
+        console.log("LEFT was clicked and ")
+
+        if (waitCuzLeftOrRightWasClicked == false){
+
+            waitCuzLeftOrRightWasClicked = true;
+
+            setTimeout(()=> {
+                
+                waitCuzLeftOrRightWasClicked = false
+            }, 7000)
+
+            gsap.to(targets[count], { xPercent: -100 });
+            count = count < targets.length - 1 ? ++count : 0;
+            gsap.fromTo(targets[count], { xPercent: 100 }, { xPercent: 0 });
+
+        }else{
+
+            gsap.to(targets[count], { xPercent: -100 });
+            count = count < targets.length - 1 ? ++count : 0;
+            gsap.fromTo(targets[count], { xPercent: 100 }, { xPercent: 0 });
+
+        }
+        
+    }
+
+    function rightClicked(){
+
+        if (waitCuzLeftOrRightWasClicked == false){
+
+            waitCuzLeftOrRightWasClicked = true;
+
+            setTimeout(()=> {
+                
+                waitCuzLeftOrRightWasClicked = false
+            }, 7000)
+
+            gsap.to(targets[count], { xPercent: 100 });
+            count = count < targets.length - 1 ? ++count : 0;
+            gsap.fromTo(targets[count], { xPercent: -100 }, { xPercent: 0 });
+
+        }else{
+
+            gsap.to(targets[count], { xPercent: 100 });
+            count = count < targets.length - 1 ? ++count : 0;
+            gsap.fromTo(targets[count], { xPercent: -100 }, { xPercent: 0 });
+
+
+        }
+
+
+    }
     
     
     
@@ -94,7 +304,55 @@ function Home(props){
         <>
             <HomeWrapper>
             
-                <Container style={{height: "45vh", width: "100vw"}}/>
+                <BoxContainer>
+                    
+                    <Box className="box">
+
+                        <img style={{zIndex: "-1", position: "absolute", minWidth: "666px", width: "100%", height: "100%"}} src={slide1}></img>
+                        <h1 ref={textRef} style={{fontSize, padding: "0px 60px", gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>CWA members guide to new 2021 benefits.</h1>
+                        <Button>READ MORE</Button>
+
+                        
+                    </Box>
+
+                    <Box className="box">
+
+                        <img style={{zIndex: "-1", position: "absolute", minWidth: "666px", width: "100%", height: "100%"}} src={slide2}></img>
+                        <h1 ref={textRef} style={{fontSize, padding: "0px 60px", gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>COVID-19 resources.</h1>
+                        <Button>LEARN MORE</Button>
+                        
+                    </Box>
+
+                    <Box className="box">
+
+                        <img style={{zIndex: "-1", position: "absolute", minWidth: "666px", width: "100%", height: "100%"}} src={slide3}></img>
+                        <h1 ref={textRef} style={{fontSize, padding: "0px 60px", gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>AT&T and Verizon Are Spending Big to Catch Up to T-Mobile.</h1>
+                        <Button>READ MORE</Button>
+                        
+                    </Box>
+
+
+                    <img style={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        left: "8px",
+                        bottom: "15vh"}} 
+                        src={leftArrow}
+                        onClick={leftClicked}>
+
+                    </img>
+                    
+                    <img style={{
+                        cursor: "pointer", 
+                        position: "absolute",
+                        right: "8px",
+                        bottom: "15vh"}} 
+                        
+                        src={rightArrow}
+                        onClick={rightClicked}>    
+                    </img>
+                        
+                </BoxContainer>
                 
             
             </HomeWrapper>
