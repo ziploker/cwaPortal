@@ -18,6 +18,8 @@ const HomeWrapper = styled.div`
 
     margin-top: 45px;
     position: relative;
+    width: 100%;
+    height:100%;
     
 
 `;
