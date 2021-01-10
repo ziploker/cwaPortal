@@ -18,8 +18,8 @@ const HomeWrapper = styled.div`
 
     margin-top: 45px;
     position: relative;
-    width: 100%;
-    height:100%;
+    height: 100%;
+    
     
 
 `;
@@ -100,7 +100,7 @@ const Container = () => (
 const BoxContainer = styled.div`
 
     width: 100vw;
-    height: 100%;
+    height: 92vh;
     min-height: 100%;
     
     position: relative;
@@ -338,8 +338,8 @@ function Home(props){
                     <img style={{
                         cursor: "pointer",
                         position: "absolute",
-                        left: "8px",
-                        bottom: "15vh"}} 
+                        left: "20px",
+                        bottom: "40px"}} 
                         src={leftArrow}
                         onClick={leftClicked}>
 
@@ -348,8 +348,8 @@ function Home(props){
                     <img style={{
                         cursor: "pointer", 
                         position: "absolute",
-                        right: "8px",
-                        bottom: "15vh"}} 
+                        right: "20px",
+                        bottom: "40px"}} 
                         
                         src={rightArrow}
                         onClick={rightClicked}>    
