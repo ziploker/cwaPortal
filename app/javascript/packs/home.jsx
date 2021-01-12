@@ -255,11 +255,11 @@ function Home(props){
                 gsap.to(targets[count], { xPercent: 100 });
                 count = count < targets.length - 1 ? ++count : 0;
                 gsap.fromTo(targets[count], { xPercent: -100 }, { xPercent: 0 });
-                gsap.to({}, { duration: 2.5, onComplete: slideIt });
+                gsap.to({}, { duration: 5, onComplete: slideIt });
 
             }else{
                 console.log("EEELLLSSSEE")
-                gsap.to({}, { duration: 2.5, onComplete: slideIt });
+                gsap.to({}, { duration: 5, onComplete: slideIt });
             }
         }
         
