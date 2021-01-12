@@ -4,7 +4,10 @@ import { Parallax, Background } from 'react-parallax';
 import slide1 from '../../assets/images/crew2dark'
 import slide2 from '../../assets/images/covid'
 import slide3 from '../../assets/images/building'
-import leftArrow from '../../assets/images/leftArrow'
+import leftArrowSmall from '../../assets/images/leftArrowSmall'
+import leftArrowSmallActive from '../../assets/images/leftArrowSmallActive'
+import rightArrowSmall from '../../assets/images/rightArrowSmall'
+import rightArrowSmallActive from '../../assets/images/rightArrowSmallActive'
 import rightArrow from '../../assets/images/rightArrow'
 import Login from './pages/login'
 import useFitText from "use-fit-text";
@@ -91,7 +94,7 @@ const Container = () => (
         
             <h1 style={{gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>CWA members guide to 2021 benefits.</h1>
             <Button>READ MORE</Button>
-            <img style={{cursor: "pointer", gridArea: "navigationLeft", justifySelf: "end", alignSelf: "center"}} src={leftArrow}></img>
+            <img style={{cursor: "pointer", gridArea: "navigationLeft", justifySelf: "end", alignSelf: "center"}} src={leftArrowSmall}></img>
             <img style={{cursor: "pointer", gridArea: "navigationRight", justifySelf: "start", alignSelf: "center"}} src={rightArrow}></img>
         </TopContent>
     </Parallax>
@@ -168,12 +171,54 @@ const Box2 = styled(Box)`
 
 `;
 
+const LeftArrowImage = styled.img`
+
+    cursor: pointer;
+    position: absolute;
+    left: 20px;
+    bottom: 50vh; 
+    
+
+
+`;
+const LeftArrowImageActive = styled(LeftArrowImage)`
+
+    opacity: ${props => props.leftHover ? "1" : "0" };
+    transition: opacity .2s linear;
+    transform: ${props => props.leftHover ? 'scale(1.2,1.2)' : 'scale(1,1)'}
+    
+    
+
+`;
+
+const RightArrowImage = styled.img`
+
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    bottom: 50vh; 
+    
+
+
+`;
+const RightArrowImageActive = styled(RightArrowImage)`
+
+    opacity: ${props => props.rightHover ? "1" : "0" };
+    transition: opacity .2s linear;
+    transform: ${props => props.rightHover ? 'scale(1.2,1.2)' : 'scale(1,1)'}
+    
+    
+
+`;
+
 
 
 function Home(props){
 
     const [screenIsAtTop, setScreenIsAtTop] = React.useState(true);
     const { fontSize, textRef } = useFitText();
+    const [leftHover, setLeftHover] = React.useState(false);
+    const [rightHover, setRightHover] = React.useState(false);
 
     
     
@@ -299,6 +344,32 @@ function Home(props){
 
     }
     
+    function leftOnMouseOverHandler(){
+
+        setLeftHover(true);
+        console.log("LLEEFFTT inonmouseoverhandlerr")
+
+    }
+
+    function leftOnMouseOutHandler(){
+
+        setLeftHover(false);
+
+    }
+
+
+    function rightOnMouseOverHandler(){
+
+        setRightHover(true);
+        console.log("RRIIGGHHT inonmouseoverhandlerr")
+
+    }
+
+    function rightOnMouseOutHandler(){
+
+        setRightHover(false);
+
+    }
     
     
 
@@ -335,25 +406,33 @@ function Home(props){
                     </Box>
 
 
-                    <img style={{
-                        cursor: "pointer",
-                        position: "absolute",
-                        left: "20px",
-                        bottom: "40px"}} 
-                        src={leftArrow}
-                        onClick={leftClicked}>
-
-                    </img>
-                    
-                    <img style={{
-                        cursor: "pointer", 
-                        position: "absolute",
-                        right: "20px",
-                        bottom: "40px"}} 
+                    <LeftArrowImage 
+                        src={leftArrowSmall} 
                         
-                        src={rightArrow}
-                        onClick={rightClicked}>    
-                    </img>
+                    />
+
+                    <LeftArrowImageActive leftHover={leftHover}
+                        src={leftArrowSmallActive} 
+                        onClick={leftClicked}
+                        onMouseOver={leftOnMouseOverHandler}
+                        onMouseOut={leftOnMouseOutHandler}
+                        
+                    />      
+
+                    
+                    
+                    <RightArrowImage 
+                        src={rightArrowSmall} 
+                        
+                    />
+
+                    <RightArrowImageActive rightHover={rightHover}
+                        src={rightArrowSmallActive} 
+                        onClick={rightClicked}
+                        onMouseOver={rightOnMouseOverHandler}
+                        onMouseOut={rightOnMouseOutHandler}
+                        
+                    />      
                         
                 </BoxContainer>
                 
