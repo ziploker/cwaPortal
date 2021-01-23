@@ -6349,6 +6349,11 @@ react-router@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-scrollbar-size@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-scrollbar-size/-/react-scrollbar-size-3.1.0.tgz#6cff1547ea95f62d6c9d5eb18dad59afe4033a9f"
+  integrity sha512-ikhw07lOuMOKRbhPXPnEGj/wJfLtYnHa5wiNWhMf8Bp8vmNGec04Eiu40peOjVJdsFDiaX8jK+A/lXkpzlHpig==
+
 react-spinkit@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-spinkit/-/react-spinkit-3.0.0.tgz#31fdaf4e18177766c57d1b1f3330290f8492a85a"
