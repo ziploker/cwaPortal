@@ -40,10 +40,7 @@ let tlRight1 = null
 let tlRight2 = null
 let tlRightSet = null
 
-let tlLeftContinueFrom0 = null
-let tlLeftContinueFrom1 = null
-let tlLeftContinueFrom2 = null
-
+let leftOrRightWasClicked = false;
 //let count = 0;
 //let waitCuzLeftOrRightWasClicked = false;
 
@@ -208,7 +205,7 @@ function Home(props){
 
     const [count, setCount] = React.useState(0);
 
-    const [waitCuzLeftOrRightWasClicked, setWaitCuzLeftOrRightWasClicked] = React.useState(false);
+    
     const [currentHeight, setHeight] = useState(0);
     const [currentWidth, setWidth] = useState(0);
     
@@ -294,9 +291,9 @@ function Home(props){
         
         tl = gsap.timeline({repeat: -1});
         
-        tl.set(box1, { xPercent: -100 });
-        tl.set(box2, { xPercent: -100 });
-        tl.set(box0, { xPercent: 0 });
+         tl.set(box1, { xPercent: -100 });
+         tl.set(box2, { xPercent: -100 });
+         tl.set(box0, { xPercent: 0 });
         
         tl.addLabel("autoStartFromZero")
         tl.call(setCounter0);
@@ -316,78 +313,44 @@ function Home(props){
         //////////////left button logic ///////////////////////////
 
         tlLeft0 = gsap.timeline({repeat: 0, paused: true});
+        
+        // tlLeft0.set(box1, { xPercent: 100 });
+        // tlLeft0.set(box2, { xPercent: 100 });
+        // tlLeft0.set(box0, { xPercent: 0 });
+        
         tlLeft0.fromTo(box0, { xPercent: 0 }, { xPercent: -100 });
     
         tlLeft0.fromTo(box2, { xPercent: 100 }, {xPercent: 0}, "<" );
         tlLeft0.call(setCounter2, null, "<-.05");
 
 
-        // tlLeftContinueFrom2 = gsap.timeline({repeat: -1, delay: 5, paused: true});
-            
         
-
-        // tlLeftContinueFrom2.fromTo(box2, { xPercent: 0 }, {xPercent: 100}, "+=3");
-        // tlLeftContinueFrom2.fromTo(box0, { xPercent: -100 }, {xPercent: 0}, "<");
-        // tlLeftContinueFrom2.call(setCounter0, null, "<-.05");
-        
-    
-        // tlLeftContinueFrom2.fromTo(box0, { xPercent: 0 }, { xPercent: 100 }, "+=3");
-        // tlLeftContinueFrom2.fromTo(box1, { xPercent: -100 }, {xPercent: 0}, "<" );
-        // tlLeftContinueFrom2.call(setCounter1, null, "<-.05");
-        
-        // tlLeftContinueFrom2.fromTo(box1, { xPercent: 0 }, {xPercent: 100}, "+=3" );
-        // tlLeftContinueFrom2.fromTo(box2, { xPercent: -100 }, {xPercent: 0}, "<");
-        // tlLeftContinueFrom2.call(setCounter2, null, "<-.05");
-
-        ////
 
         tlLeft1 = gsap.timeline({repeat: 0, paused: true});
+
+        // tlLeft1.set(box1, { xPercent: 0 });
+        // tlLeft1.set(box2, { xPercent: 100 });
+        // tlLeft1.set(box0, { xPercent: 100 });
+
         tlLeft1.fromTo(box1, { xPercent: 0 }, { xPercent: -100 });
     
         tlLeft1.fromTo(box0, { xPercent: 100 }, {xPercent: 0}, "<" );
         tlLeft1.call(setCounter0, null, "<-.05");
 
-        tlLeftContinueFrom0 = gsap.timeline({repeat: -1, delay: 5, paused: true});
-            
         
-
-        // tlLeftContinueFrom0.fromTo(box0, { xPercent: 0 }, { xPercent: 100 }, "+=3");
-        // tlLeftContinueFrom0.fromTo(box1, { xPercent: -100 }, {xPercent: 0}, "<" );
-        // tlLeftContinueFrom0.call(setCounter1, null, "<-.05");
-
-        // tlLeftContinueFrom0.fromTo(box1, { xPercent: 0 }, {xPercent: 100}, "+=3" );
-        // tlLeftContinueFrom0.fromTo(box2, { xPercent: -100 }, {xPercent: 0}, "<");
-        // tlLeftContinueFrom0.call(setCounter2, null, "<-.05");
-
-        // tlLeftContinueFrom0.fromTo(box2, { xPercent: 0 }, {xPercent: 100}, "+=3");
-        // tlLeftContinueFrom0.fromTo(box0, { xPercent: -100 }, {xPercent: 0}, "<");
-        // tlLeftContinueFrom0.call(setCounter0, null, "<-.05");
-
-        ////
-
+        
         tlLeft2 = gsap.timeline({repeat: 0, paused: true});
+
+        // tlLeft2.set(box1, { xPercent: 100 });
+        // tlLeft2.set(box2, { xPercent: 0 });
+        // tlLeft2.set(box0, { xPercent: 100 });
+
         tlLeft2.fromTo(box2, { xPercent: 0 }, { xPercent: -100 });
     
         tlLeft2.fromTo(box1, { xPercent: 100 }, {xPercent: 0}, "<" );
         tlLeft2.call(setCounter1, null, "<-.05");
 
 
-        // tlLeftContinueFrom1 = gsap.timeline({repeat: -1, delay: 5, paused: true});
-            
-        
-        // tlLeftContinueFrom1.fromTo(box1, { xPercent: 0 }, {xPercent: 100}, "+=3" );
-        // tlLeftContinueFrom1.fromTo(box2, { xPercent: -100 }, {xPercent: 0}, "<");
-        // tlLeftContinueFrom1.call(setCounter2, null, "<-.05");
-
-        // tlLeftContinueFrom1.fromTo(box2, { xPercent: 0 }, {xPercent: 100}, "+=3");
-        // tlLeftContinueFrom1.fromTo(box0, { xPercent: -100 }, {xPercent: 0}, "<");
-        // tlLeftContinueFrom1.call(setCounter0, null, "<-.05");
-        
-
-        // tlLeftContinueFrom1.fromTo(box0, { xPercent: 0 }, { xPercent: 100 }, "+=3");
-        // tlLeftContinueFrom1.fromTo(box1, { xPercent: -100 }, {xPercent: 0}, "<" );
-        // tlLeftContinueFrom1.call(setCounter1, null, "<-.05");
-        
         ////////////////// right button logic /////////////////////
 
         tlRight0 = gsap.timeline({repeat: 0, paused: true});
@@ -425,17 +388,25 @@ function Home(props){
     function handleScroll(){
         
         console.log("<---- IN Handle scroll --------------------------------->")
-        console.log("window.pageYOffset = " + window.pageYOffset)
+        //console.log("window.pageYOffset = " + window.pageYOffset)
 
         
         if (window.pageYOffset >= 205){
              
-            tl.pause();
+            if (tl.isActive()){
+                tl.pause();
+            }
+            
             
         }else{
 
 
-            if (!tl.isActive()){
+            if (tl.isActive() == false && leftOrRightWasClicked == false){
+
+
+                console.log("tl.isActive() = " + tl.isActive().toString())
+                console.log("leftOrRightWasClicked = " + leftOrRightWasClicked)
+                console.log("in else so it wansent active and left and right wansent clicked yet")
                 tl.resume();
             }
 
@@ -452,50 +423,32 @@ function Home(props){
 
         console.log("LEFT was clicked ")
         tl.pause();
-        // tlLeftContinueFrom2.pause();
-        // tlLeftContinueFrom1.pause();
-        // tlLeftContinueFrom0.pause();
+        leftOrRightWasClicked = true
 
         if (count == 0){
 
             console.log("...and count was 0 ")
-            
-            //flip once to the left (to count 2)
             tlLeft0.restart();
-
-            
-            //then start auto slideshow from COUNT = 2
-            //tlLeftContinueFrom2.restart()
-            tl.play("autoStartFromTwo")
+            //tl.play("autoStartFromTwo")
 
         
         }else if (count == 2){
 
             console.log("...and count was 2 ")
-
-            //flip once to the left (to count 1)
             tlLeft2.restart();
-
-
-            //then start auto slideshow from COUNT = 1
-            //tlLeftContinueFrom1.restart();
-            tl.play("autoStartFromOne")
+            //tl.play("autoStartFromOne")
 
         }else if (count == 1){
 
             console.log("...and count was 0 ")
-
-            //flip once to the left (to count 0)
             tlLeft1.restart();
-
-            //then start auto slideshow from COUNT = 0
-            //tlLeftContinueFrom0.restart();
-            tl.play("autoStartFromZero")
+            //tl.play("autoStartFromZero")
             
         }else {
 
             //this should never happen
-            console.log("COUNT WAS PROBABLY NULL")
+            console.log("COUNT is " + count)
+            
         }
 
 
@@ -506,45 +459,27 @@ function Home(props){
 
         console.log("RIGHT was clicked ")
         tl.pause();
-
-        // tlLeftContinueFrom2.pause();
-        // tlLeftContinueFrom1.pause();
-        // tlLeftContinueFrom0.pause();
-        
-        
+        leftOrRightWasClicked = true
 
 
         if (count == 0){
 
             console.log("...and count was 0 ")
-            
-        
             tlRight0.restart();
-            tl.play("autoStartFromOne")
-            //tl.resume();
-
-            //tlRightSet = gsap.timeline({repeat: -1});
-            //tlRightSet.add()
-
-
-
-
+            //tl.play("autoStartFromOne")
+           
         }else if (count == 1){
 
             console.log("...and count was 1 ")
-
             tlRight1.restart();
-            tl.play("autoStartFromTwo")
+            //tl.play("autoStartFromTwo")
             
-            //tl.resume();
 
         }else if (count == 2){
 
             console.log("...and count was 2 ")
-
             tlRight2.restart();
-
-            tl.play("autoStartFromZero")
+            //tl.play("autoStartFromZero")
             
             
         
@@ -618,7 +553,7 @@ function Home(props){
                     <Box id="box1" className="box" style={{backgroundImage:`url(${slide2})`  }}>
 
                         {/* <img className="img1" style={{backgroundPosition: `50% ${-innerHeight / 2}px`, zIndex: "-1", position: "absolute", minWidth: "666px", width: "100%", height: "100%"}} src={slide2}></img> */}
-                        <h1 ref={textRef} style={{fontSize, padding: "0px 60px", gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>COVID-19 resources.</h1>
+                        <h1 ref={textRef} style={{fontSize, translateX: "-100px", padding: "0px 60px", gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>COVID-19 resources.</h1>
                         <Button>LEARN MORE</Button>
                         
                     </Box>
@@ -626,7 +561,7 @@ function Home(props){
                     <Box id="box2" className="box" style={{backgroundImage:`url(${slide3})`  }}>
 
                         {/* <img className="img2" style={{backgroundPosition: `50% ${-innerHeight / 2}px`, zIndex: "-1", position: "absolute", minWidth: "666px", width: "100%", height: "100%"}} src={slide3}></img> */}
-                        <h1 ref={textRef} style={{fontSize, padding: "0px 60px", gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>AT&T and Verizon Are Spending Big to Catch Up to T-Mobile.</h1>
+                        <h1 ref={textRef} style={{fontSize, translateX: "-100px", padding: "0px 60px", gridArea: "headline", fontSize: "3em", lineHeight: "1.1em", color: "#EDEAEA", fontFamily: "'Quantico', sans-serif"}}>AT&T and Verizon Are Spending Big to Catch Up to T-Mobile.</h1>
                         <Button>READ MORE</Button>
                         
                     </Box>
