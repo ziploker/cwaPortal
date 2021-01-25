@@ -60,7 +60,7 @@ const HomeWrapper = styled.div`
 const BoxContainer = styled.section`
 
     width: 100vw;
-    height: 95vh;
+    height: 93vh;
     min-height: 450px;
     
     position: relative;

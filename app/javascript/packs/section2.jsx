@@ -187,7 +187,7 @@ function Section2(props, ref) {
          
       duration: ".3",
       scrollTrigger: {
-        markers: {startColor: "green", endColor: "red", fontSize: "12px"},
+        //markers: {startColor: "green", endColor: "red", fontSize: "12px"},
         trigger: homeWrapper,
         start: "25% 87%",
         end: "bottom bottom",

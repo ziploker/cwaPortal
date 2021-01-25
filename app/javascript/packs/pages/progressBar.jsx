@@ -7,7 +7,7 @@ const ProgressBarWrapper = styled.div`
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 60px;
+    bottom: 70px;
     margin: 0 auto;
     width: 200px;
     justify-self: center;
