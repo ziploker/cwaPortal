@@ -185,13 +185,13 @@ function Section2(props, ref) {
     
     let tl = gsap.timeline({
          
-      duration: ".3",
+      duration: ".1",
       scrollTrigger: {
         //markers: {startColor: "green", endColor: "red", fontSize: "12px"},
         trigger: homeWrapper,
         start: "25% 87%",
         end: "bottom bottom",
-        toggleActions: "play none none reset",
+        toggleActions: "play none none none",
       }
     });
 

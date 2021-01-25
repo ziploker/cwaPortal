@@ -427,11 +427,11 @@ function Look_Up_Section (props, ref) {
          
         
         scrollTrigger: {
-          //markers: {startColor: "green", endColor: "red", fontSize: "12px"},
+          markers: {startColor: "green", endColor: "red", fontSize: "12px"},
           trigger: banner,
           start: "center 87%",
           end: "bottom bottom",
-          toggleActions: "play none none reset",
+          toggleActions: "play none none none",
         }
       });
 
@@ -457,6 +457,15 @@ function Look_Up_Section (props, ref) {
           
         }, "<.1");
 
+        tl.from(megaPhone, 
+        
+          {
+            x: -20,
+            opacity: 0,
+            //ease: "back",
+            
+            
+          }, "<-.1");
       // tl.from(megaPhone, 
       
       //   {

@@ -61,7 +61,7 @@ const BoxContainer = styled.section`
 
     width: 100vw;
     height: 93vh;
-    min-height: 450px;
+    min-height: 500px;
     
     position: relative;
     
