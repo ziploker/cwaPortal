@@ -64,7 +64,7 @@ const BoxContainer = styled.section`
     
     overflow: hidden;
     
-
+    
 
 `;
 
@@ -125,7 +125,7 @@ const Box = styled.div`
 
 const Button = styled.button`
 
-  background: linear-gradient(to bottom, #6371c7, #5563c1);
+  background: linear-gradient(to bottom, #5FCC61, #318e33);
   /* border-color: ${props => props.isBtnDisabled ? "#cccccc" : "#3f4eae"} ;*/
   border-radius: 3px;
   padding: 1rem;
@@ -140,7 +140,7 @@ const Button = styled.button`
   grid-area: call2action;
   text-decoration: none;
   width: 11em;
-  border-color: #3f4eae;
+  border-color: #5FCC61;
 
 
 `;

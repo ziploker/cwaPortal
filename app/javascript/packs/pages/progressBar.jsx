@@ -20,7 +20,13 @@ const ProgressBarWrapper = styled.div`
     grid-template-areas:
         "circle1     .   circle2    .    circle3";
 
+    @media screen and (min-width: 500px){
 
+        bottom: 60px;
+        
+
+
+    }
 `;
 
 const Circle1 = styled.div`

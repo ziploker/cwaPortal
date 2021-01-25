@@ -98,7 +98,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  background: linear-gradient(to bottom, #6371c7, #5563c1);
+  
   border-color: ${props => props.isBtnDisabled ? "#cccccc" : "#3f4eae"} ;
   border-radius: 3px;
   padding: 1rem;
@@ -109,6 +109,20 @@ const Button = styled.button`
   font-size: 0.8rem;
   
   cursor: pointer;
+
+
+
+  background: linear-gradient(to bottom, #5FCC61, #318e33);
+  /* border-color: ${props => props.isBtnDisabled ? "#cccccc" : "#3f4eae"} ;*/
+  
+  
+  
+  
+  
+ 
+
+  
+  border-color: #5FCC61;
   
 `;
 

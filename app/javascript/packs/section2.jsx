@@ -223,7 +223,7 @@ function Section2(props, ref) {
 
 
 
-  });
+  },[]);
 
   const validForm = () => {
     if (state.full_name ) {

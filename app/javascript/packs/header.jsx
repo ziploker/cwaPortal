@@ -4,7 +4,7 @@ import {Link, useLocation} from 'react-router-dom'
 
 import useDocumentScrollThrottled from './useDocumentScrollThrottled.jsx'
 import styled from 'styled-components'
-import Logo from '../../assets/images/cwaLogo4.jpg'
+import Logo from '../../assets/images/cwaLogo5.jpg'
 
 import Burger from './burger'
 import SideMenu from './sidemenu'
