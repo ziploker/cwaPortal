@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled, { ThemeProvider } from 'styled-components'
 //import { Parallax, Background } from 'react-parallax';
 import crew from '../../assets/images/crew'
@@ -17,6 +17,11 @@ import { Card, Logo, Form, Input, Button, ErrorMsg, RedX, LoginWrapper,
 
 import axios from 'axios'
 import $ from 'jquery';
+
+import {gsap} from 'gsap'
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 var Spinner = require('react-spinkit');
 //var randomColor = require('randomcolor');
@@ -167,6 +172,58 @@ function Section2(props, ref) {
     showStatusSpinner: false,
     waitMessage: ""
   })
+
+
+
+  useEffect(() => {
+
+
+
+    let homeWrapper = document.querySelectorAll(".homeWrapper");
+    let formItem = document.querySelectorAll(".formItem");
+    let formWrapper = document.querySelectorAll(".formWrapper");
+    
+    let tl = gsap.timeline({
+         
+      duration: ".3",
+      scrollTrigger: {
+        markers: {startColor: "green", endColor: "red", fontSize: "12px"},
+        trigger: homeWrapper,
+        start: "25% 87%",
+        end: "bottom bottom",
+        toggleActions: "play none none reset",
+      }
+    });
+
+    tl.from(formWrapper, 
+        
+      {
+        
+        opacity: 0,
+        
+        
+        
+        
+      });  
+
+    tl.from(formItem, 
+        
+      {
+        x: 100,
+        opacity: 0,
+        ease: "back",
+        stagger: 0.1
+        
+        
+      },"<.1");
+
+      
+
+
+
+
+
+  });
 
   const validForm = () => {
     if (state.full_name ) {
@@ -370,7 +427,7 @@ const handleAdd = e => {
   return (
             
          
-    <HomeWrapper ref={section2ScrollToRef}>
+    <HomeWrapper className="homeWrapper" ref={section2ScrollToRef}>
           
       <LoginWrapper>
 
@@ -385,12 +442,12 @@ const handleAdd = e => {
 
         </div>
             
-        <Card>
+        <Card className="formWrapper" >
 
                 
           <Form onSubmit = {handleAdd}>
 
-            <FormItem >
+            <FormItem className="formItem">
                 <Label className={state.full_nameFieldActive ? "field-active" : ""}> full name </Label>
                 <Input 
                 name="full_name" 
@@ -404,7 +461,7 @@ const handleAdd = e => {
             </FormItem>
 
                     
-            <FormItem >
+            <FormItem className="formItem">
                 <Label className={state.emailFieldActive ? "field-active" : ""}>email</Label>
                 <Input 
                 name="email" 
@@ -417,7 +474,7 @@ const handleAdd = e => {
                 required/>
             </FormItem>
 
-            <FormItem >
+            <FormItem className="formItem">
                 <Label className={state.passwordFieldActive ? "field-active" : ""}>password</Label>
                 <Input 
                 name="password" 
@@ -436,7 +493,7 @@ const handleAdd = e => {
  
 
             
-            <Button type="submit" disabled={state.isBtnDisabled}>Sign Up</Button>
+            <Button className="formItem" type="submit" disabled={state.isBtnDisabled}>Sign Up</Button>
             
             <div  style={{display: "flex", justifyContent: "center"}}>
                 

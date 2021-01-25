@@ -12,6 +12,10 @@ import '../../assets/stylesheets/sendButton'
 import useFitText from "use-fit-text";
 import megaphone from '../../assets/images/megaphone'
 
+import {gsap} from 'gsap'
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+gsap.core.globals('ScrollTrigger', ScrollTrigger);
 
 
 
@@ -87,9 +91,10 @@ const BannerWrapper = styled.div`
 
 const MegaPhone = styled.img`
 
-  //justify-selfwidth: 50px;
+  
+  width: 60px;
   height: 100%;
-  transform: scaleX(-1);
+  
   grid-area: megaphone;
   justify-self: end;
   align-self: flex-end; 
@@ -382,6 +387,104 @@ function Look_Up_Section (props, ref) {
   const sendButtonRef = useRef(null);
   
   
+  useEffect(() => {
+
+    
+    window.addEventListener('scroll', handleScroll);
+
+
+
+
+
+   
+
+      
+      
+      let banner = document.querySelectorAll(".banner");
+      let subBanner = document.querySelectorAll(".subBanner");
+      let megaPhone = document.querySelectorAll(".megaPhone");
+      function R(max, min) {
+        return Math.random() * (max - min) + min
+      };
+
+      var shake;
+
+      function Tween(tl) {
+    
+        tl.to(megaPhone, 0.15, {
+          x: R(-10, 10),
+          y: R(-10, 10),
+          scale: R(1.1, 0.9),
+          rotation: R(-10, 10),
+          ease: "rough",
+          onComplete: Tween,
+          onCompleteParams: [tl]
+        })
+      };
+      /////////////////// heading shift ///////////////////////////////////
+
+      let tl = gsap.timeline({
+         
+        
+        scrollTrigger: {
+          markers: {startColor: "green", endColor: "red", fontSize: "12px"},
+          trigger: banner,
+          start: "center 87%",
+          end: "bottom bottom",
+          toggleActions: "play none none reset",
+        }
+      });
+
+      tl.from(banner, 
+        
+        {
+          x: 100,
+          opacity: 0,
+          ease: "back",
+          
+          
+        });
+      
+      
+       
+      tl.from(subBanner, 
+        
+        {
+          y: 50,
+          opacity: 0,
+          //ease: "back",
+          
+          
+        }, "<.1");
+
+      // tl.from(megaPhone, 
+      
+      //   {
+      //     x: 50,
+      //     opacity: 0,
+      //     ease: "back",
+          
+      //   }, "<.8");
+
+       //tl.call(Tween(tl))
+      
+
+
+
+      
+        
+   
+          
+
+
+
+      
+    return () => {
+      window.removeEventListener('scroll', () => handleScroll);
+    };
+  }, []);
+
+
   const animateButton = function(e) {
 
     e.preventDefault;
@@ -418,7 +521,13 @@ function Look_Up_Section (props, ref) {
       },3000);
     
     }
-    
+    //scrollTrigger: {
+      //   markers: {startColor: "green", endColor: "red", fontSize: "12px"},
+      //      trigger: subBanner,
+      //      start: "50% 87%",
+           
+           
+      //  }
     
   
   
@@ -472,15 +581,7 @@ function Look_Up_Section (props, ref) {
     
   
 
-  useEffect(() => {
-
-    
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', () => handleScroll);
-    };
-  }, []);
+  
 
   
   return (
@@ -493,10 +594,10 @@ function Look_Up_Section (props, ref) {
         
       <Lookup_Section_Wrapper ref={LookupScrollToRef}>
         
-        <MegaPhone src={megaphone}></MegaPhone>
-        <Banner > Take Action!!</Banner>
+        <MegaPhone className="megaPhone" src={megaphone}></MegaPhone>
+        <Banner className="banner"> Take Action!!</Banner>
       
-        <SubBanner> Contact your Florida State Representative </SubBanner>
+        <SubBanner className="subBanner"> Contact your Florida State Representative </SubBanner>
 
         <Hr></Hr>
 
@@ -671,6 +772,5 @@ function Look_Up_Section (props, ref) {
 const Newish = React.forwardRef(Look_Up_Section);
 
 
-//export default props => <Look_Up_Section {...props} />
 
 export default Newish;

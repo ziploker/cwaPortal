@@ -238,6 +238,14 @@ function Home(props){
         box2 = document.querySelectorAll("#box2");
 
         let section = document.querySelectorAll(".boxContainer") 
+
+        /////////////////// heading shift ///////////////////////////////////
+
+        
+
+
+
+
             
         ///////////////////  PARALAX ///////////////////////////////////////   
         gsap.set(box0, {backgroundPosition: `50% 0px`})
@@ -292,15 +300,15 @@ function Home(props){
         
         tl.addLabel("autoStartFromZero")
         tl.call(setCounter0);
-        tl.fromTo(box0, { xPercent: 0 }, { xPercent: 100 }, "+=3");
+        tl.fromTo(box0, { xPercent: 0 }, { xPercent: 100 }, "+=6");
         tl.fromTo(box1, { xPercent: -100 }, {xPercent: 0}, "<" );
         tl.addLabel("autoStartFromOne")
         tl.call(setCounter1, null, "<-.05");
-        tl.fromTo(box1, { xPercent: 0 }, {xPercent: 100}, "+=3" );
+        tl.fromTo(box1, { xPercent: 0 }, {xPercent: 100}, "+=6" );
         tl.fromTo(box2, { xPercent: -100 }, {xPercent: 0}, "<");
         tl.addLabel("autoStartFromTwo")
         tl.call(setCounter2, null, "<-.05");
-        tl.fromTo(box2, { xPercent: 0 }, {xPercent: 100}, "+=3");
+        tl.fromTo(box2, { xPercent: 0 }, {xPercent: 100}, "+=6");
         tl.fromTo(box0, { xPercent: -100 }, {xPercent: 0}, "<");
         tl.call(setCounter0, null, "<-.05");
 
