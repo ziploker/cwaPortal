@@ -152,7 +152,7 @@ function ResultCardTwo(props){
         <Title ref={ref} style={{fontSize}}>{props.results.two.chamber ? props.results.two.chamber === "Senate" ? "Senator": "Representative" : ""}</Title>
         
 
-      <img src={props.results.two.image ? props.results.two.image : man} style={{width: "100%", height: "100%", gridArea: "1/1/7/7", overflow: "hidden"}}/>
+      <img src={props.results.two.image ? props.results.two.image : man} style={{width: "100%", height: "100%", maxHeight: "346.75", gridArea: "1/1/7/7", overflow: "hidden"}}/>
 
       
       <BottomBar>
